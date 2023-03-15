@@ -1,4 +1,16 @@
 .root {
   flex-grow: 1;
   flex-shrink: 1;
+  color: white;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border: solid red 1px;
+  position: relative;
+  align-items: center;
+}
+
+.favortieText {
+  font-size: 24px;
 }

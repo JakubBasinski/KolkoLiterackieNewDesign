@@ -1,0 +1,10 @@
+.root {
+  flex-grow: 5;
+  flex-shrink: 5;
+  padding: 50px;
+  display: flex;
+  align-items: center;
+  justify-items: start;
+  flex-direction: column;
+  border: 0px solid #888585;
+}

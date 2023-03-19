@@ -1,17 +1,32 @@
 .root {
-  flex-basis: 70%;
-  flex-grow: 5;
-  flex-shrink: 5;
+  width: 100%;
   padding: 50px;
   display: flex;
   align-items: center;
   justify-items: start;
   flex-direction: column;
   gap: 50px;
-  overflow-x: hidden;
-  background-color: rgba(0, 0, 0, 0.90);
+  background-color: rgba(0, 0, 0, 0.85);
+  border: solid 1px blue;
+
+  // overflow-x: hidden;
 }
 
 .root::-webkit-scrollbar {
   display: none;
+}
+
+@keyframes enter {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

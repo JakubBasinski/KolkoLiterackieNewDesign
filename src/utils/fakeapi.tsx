@@ -1,4 +1,4 @@
-export interface Movie {
+export interface Book {
     id: number;
     poster_path: string;
     title: string;
@@ -7,7 +7,9 @@ export interface Movie {
     release_date: string;
 }
 
-export const fakeBooks: Movie[] = [
+
+
+export const fakeBooks: Book[] = [
     {
         id: 1,
         poster_path: '/images/Antychryst.jpg',
@@ -39,7 +41,7 @@ export const fakeBooks: Movie[] = [
         title: 'Zmien swoj nawyk',
         overview: 'Dostan to czego tylko chcesz',
         vote_average: 5,
-        release_date: '4/6/2002',
+        release_date: '4/8/2002',
     },
 
     {
@@ -48,8 +50,9 @@ export const fakeBooks: Movie[] = [
         title: 'Wiez',
         overview: 'Parenting pelnym ryjem',
         vote_average: 5,
-        release_date: '4/6/2002',
-    },{
+        release_date: '4/10/2002',
+    },
+    {
         id: 6,
         poster_path: '/images/Antychryst.jpg',
         title: 'Antychryst',
@@ -80,17 +83,9 @@ export const fakeBooks: Movie[] = [
         title: 'Zmien swoj nawyk',
         overview: 'Dostan to czego tylko chcesz',
         vote_average: 5,
-        release_date: '4/6/2002',
+        release_date: '4/8/2002',
     },
 
-    {
-        id: 10,
-        poster_path: '/images/Wiez.jpg',
-        title: 'Wiez',
-        overview: 'Parenting pelnym ryjem',
-        vote_average: 5,
-        release_date: '4/6/2002',
-    },
 ];
 
 // export const fakeFavorites = [

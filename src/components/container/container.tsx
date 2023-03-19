@@ -2,20 +2,24 @@ import styles from './container.module.scss';
 import classNames from 'classnames';
 import { Search } from '../search/search';
 import { Cards } from '../cards/cards';
+import { motion } from 'framer-motion';
+import { Card } from '../card/card';
+import { useState } from 'react';
 
 export interface ContainerProps {
     className?: string;
 }
 
-/**
- * This component was created using Codux's Default new component template.
- * To create custom component templates, see https://help.codux.com/kb/en/article/configuration-for-containers-and-templates
- */
 export const Container = ({ className }: ContainerProps) => {
     return (
-        <div className={classNames(styles.root, className)}>
+        <motion.div
+            className={classNames(styles.root, className)}
+            initial={{ x: -window.innerWidth, opacity: 0, display: 'none' }}
+            animate={{ x: 0, opacity: 1, transition: { delay: 1, duration: 1 }, display: 'flex' }}
+            exit={{ x: window.innerWidth, opacity: 0, transition: { duration: 1 } }}
+        >
             <Search />
             <Cards />
-        </div>
+        </motion.div>
     );
 };

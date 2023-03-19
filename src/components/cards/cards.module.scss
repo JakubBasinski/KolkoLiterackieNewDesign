@@ -1,10 +1,105 @@
 .root {
   display: flex;
-  align-content: start;
+  align-items: start;
   flex-wrap: wrap;
   flex-direction: row;
-  width: 100%;
-  justify-content: space-between;
-  gap:20px
+  width: 90%;
+  padding: 20px;
+  gap: 40px;
+  justify-content: center;
+  overflow-x: hidden;
+}
 
+.xContainer {
+  width: 90%;
+  display: flex;
+  margin: 0 auto;
+}
+.x {
+  color: grey;
+  font-size: 40px;
+  transform: rotate(45deg);
+  margin: 0;
+}
+
+.x:hover {
+  scale: 1.1;
+  color: #91815f;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.root::-webkit-scrollbar {
+  display: none;
+}
+
+.singleCardView {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.singleCardContainer {
+  height: 500px;
+  margin: auto;
+  margin-top: 0;
+  border: solid 1px hsla(0, 0%, 83%, 0.5);
+  background-color: hsla(0, 0%, 83%, 0.05);
+  width: 80%;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.bookImage {
+  flex: 1 0;
+  display: flex;
+  padding: 40px;
+  justify-content: center;
+  height: 420px;
+  border-right: solid 1px hsla(0, 0%, 83%, 0.5);
+}
+
+.bookDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  height: 420px;
+  flex: 4 0;
+  padding-left: 40px;
+}
+
+.text {
+  color: #777;
+}
+
+.bookActions {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 80%;
+  flex: 1 0;
+  padding-top: 80px;
+  padding-left: 40px;
+}
+
+.subsection {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin: 0;
+  padding: 0;
+  gap: 5px;
+}
+
+.subsection p,
+h1,
+h3,
+h4 {
+  margin: 0;
+  padding: 0;
 }

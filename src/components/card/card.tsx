@@ -12,7 +12,9 @@ export interface Movie {
 
 export interface CardProps {
     className?: string;
-    movie: Movie;
+    book: Movie;
+    handleSetSelected: (id: number) => void;
+
 }
 
 /**
@@ -20,15 +22,27 @@ export interface CardProps {
  * To create custom component templates, see https://help.codux.com/kb/en/article/configuration-for-cards-and-templates
  */
 
-export const Card = ({ className, movie }: CardProps) => {
+export const Card = ({className, book, handleSetSelected }: CardProps) => {
     return (
-        <div className={classNames(styles.root, className)}>
-            <img src={movie.poster_path} className={styles.cardImage} />
+        <div
+            onClick={() => {
+                handleSetSelected(book.id);
+            }}
+            className={classNames(styles.root, className)}
+        >
+            <img src={book.poster_path} alt={book.title} className={styles.cardImage} />
             <div className={styles.cardDetails}>
-                <h1>{movie.title}</h1>
-                <span className={styles.title}>{movie.vote_average}</span>
-                <p className={styles.cardDescription}>{movie.overview.substring(0,220)}</p>
-                <button className={styles.cardButton}>+</button>
+                <h1 className={styles.titleText}>{book.title}</h1>
+                <span className={styles.title}>{book.vote_average}</span>
+                <p className={styles.cardDescription}>{book.overview.substring(0, 220)}</p>
+                <button
+                    onMouseEnter={(e) => {
+                        e.stopPropagation();
+                    }}
+                    className={styles.cardButton}
+                >
+                    +
+                </button>
             </div>
         </div>
     );

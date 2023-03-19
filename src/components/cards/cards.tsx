@@ -2,7 +2,10 @@ import styles from './cards.module.scss';
 import classNames from 'classnames';
 import { Card } from '../card/card';
 import { Movie } from '../card/card';
-import { fakeBooks } from '../../utils/fakeapi';
+import { useContext } from 'react';
+import DisplayContext from '../../store/display-context';
+import { useEffect, useState } from 'react';
+import Comments from '../comments/Comments';
 
 export interface CardsProps {
     className?: string;
@@ -19,16 +22,69 @@ export const fakeMovies: Movie[] = [
     },
 ];
 
-/**
- * This component was created using Codux's Default new component template.
- * To create custom component templates, see https://help.codux.com/kb/en/article/configuration-for-cardss-and-templates
- */
 export const Cards = ({ className }: CardsProps) => {
+    const { fakeBooksData } = useContext(DisplayContext);
+    const [fakeBooks, setFakeBooks] = useState(fakeBooksData);
+    const [selectedBookId, setSelected] = useState<number | null>(null);
+    let selectedBook = fakeBooks.filter((books) => {
+        return books.id === selectedBookId;
+    })[0];
+
+    const handleSetSelected = (id: number) => {
+        setSelected(id);
+    };
+
+    useEffect(() => {
+        setFakeBooks(fakeBooksData);
+        console.log('hiii');
+    }, [fakeBooksData]);
+
     return (
         <div className={classNames(styles.root, className)}>
-            {fakeBooks.map((book) => (
-                <Card movie={book} />
-            ))}
+            {selectedBookId === null &&
+                fakeBooks.map((book, i) => (
+                    <Card book={book} key={book.id} handleSetSelected={handleSetSelected} />
+                ))}
+
+            {selectedBook && (
+                <section className={styles.singleCardView}>
+                    <div className={styles.xContainer}>
+                        <span onClick={() => {setSelected(null)}} className={styles.x}>
+                            +
+                        </span>
+                    </div>
+
+                    <div className={styles.singleCardContainer}>
+                        <section className={styles.bookImage}>
+                            <img src={selectedBook.poster_path} alt={selectedBook.title} />
+                        </section>
+                        <section className={styles.bookDetails}>
+                            <div className={styles.subsection}>
+                                <p className={styles.text}>Title</p>
+                                <h1>{selectedBook.title}</h1>
+                            </div>
+                            <div className={styles.subsection}>
+                                <p className={styles.text}>Rating [2 Votes]</p>
+                                <h4>{selectedBook.vote_average} / 5 </h4>
+                            </div>
+                            <div className={styles.subsection}>
+                                <p className={styles.text}>Meeting Details</p>
+                                <h4>{selectedBook.release_date}, Poznan</h4>
+                            </div>
+                            <div className={styles.subsection}>
+                                <p className={styles.text}>Literats</p>
+                                <h4>Wojtek, Kuba, Daniel, Wambli</h4>
+                            </div>
+                            <div className={styles.subsection}>
+                                <p className={styles.text}>Recommender</p>
+                                <h4>Wojtek </h4>
+                            </div>
+                        </section>
+                        <section className={styles.bookActions}></section>
+                    </div>
+                </section>
+            )}
+            {selectedBook && <Comments currentUserId="1" />}
         </div>
     );
 };

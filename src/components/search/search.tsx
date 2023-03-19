@@ -1,22 +1,22 @@
 import styles from './search.module.scss';
 import classNames from 'classnames';
+import { useState } from 'react';
+
 
 export interface SearchProps {
     className?: string;
 }
 
-/**
- * This component was created using Codux's Default new component template.
- * To create custom component templates, see https://help.codux.com/kb/en/article/configuration-for-searchs-and-templates
- */
 export const Search = ({ className }: SearchProps) => {
+    const [query, setQuery] = useState('');
     return (
         <div className={classNames(styles.root, className)}>
-            <input className={styles.searchInput} />
+            <input
+                className={styles.searchInput}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Enter title"
+            />
             <button className={styles.searchButton}>Search</button>
-            {/* <a href="/">
-                <span> Button </span> <i></i>
-            </a> */}
         </div>
     );
 };

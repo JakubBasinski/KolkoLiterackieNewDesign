@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import { Book } from '../utils/fakeapi';
 import { fakeBooks } from '../utils/fakeapi';
+import { fakeMeetings } from '../utils/fakeapi';
+import { MeetingInterface } from '../utils/fakeapi';
 
 interface DisplayCotnextType {
     fakeBooksData: Book[];
     openBookPage: boolean;
     setBookState: () => void;
     editBooksData: (item: any) => void;
+    searchForBook: (text: string) => void;
+    searchQuery: string;
+    fakeMeetingsData: MeetingInterface[];
+    editHistoryData: (item: string) => void;
 }
 
 const DisplayContext = React.createContext<DisplayCotnextType>({
@@ -14,6 +20,10 @@ const DisplayContext = React.createContext<DisplayCotnextType>({
     openBookPage: false,
     setBookState: () => {},
     editBooksData: (item: any) => {},
+    searchForBook: (text: string) => {},
+    searchQuery: '',
+    fakeMeetingsData: [],
+    editHistoryData: (item: string) => {},
 });
 
 type Props = {
@@ -23,6 +33,37 @@ type Props = {
 export const DisplayContextProvider = ({ children }: Props) => {
     const [fakeBookList, setFakeBooks] = useState(fakeBooks);
     const [isBookPage, setIsBookPage] = useState(false);
+    const [query, setQuery] = useState('');
+
+    const [fakeHisotryList, setFakeHistory] = useState(fakeMeetings);
+
+    const handleSetQuery = (e: string) => {
+        setQuery(e);
+    };
+
+    const editHistory = (action: any) => {
+        const newList = [...fakeHisotryList];
+        switch (action) {
+            case 'Date':
+                console.log('date');
+                newList.sort((a, b) => {
+                    const dateA = new Date(a.date);
+                    const dateB = new Date(b.date);
+                    console.log(dateA.getTime() - dateB.getTime());
+                    return dateB.getTime() - dateA.getTime();
+                });
+                setFakeHistory(newList);
+                break;
+
+            case 'Place':
+                newList.sort((a, b) => (a.place > b.place ? 1 : -1));
+                setFakeHistory(newList);
+                break;
+            default:
+                console.log('what?');
+        }
+    };
+
     const editBooks = (action: any) => {
         const newList = [...fakeBookList];
         switch (action) {
@@ -57,6 +98,10 @@ export const DisplayContextProvider = ({ children }: Props) => {
         openBookPage: isBookPage,
         setBookState: isBookHandler,
         editBooksData: editBooks,
+        searchForBook: handleSetQuery,
+        searchQuery: query,
+        fakeMeetingsData: fakeHisotryList,
+        editHistoryData: editHistory,
     };
 
     return <DisplayContext.Provider value={contextValue}>{children}</DisplayContext.Provider>;

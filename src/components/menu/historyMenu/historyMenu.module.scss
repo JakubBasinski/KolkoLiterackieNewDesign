@@ -26,14 +26,14 @@
 @mixin sortByLine-style($animationType, $opacity) {
   opacity: $opacity;
   width: 100%;
-  color: rgb(78, 70, 60);
+  color: #777;
   animation: $animationType 0.5s forwards ease-in-out;
   animation-delay: 0.1s;
 }
 
 @mixin title-style($animationType) {
-  color: #777;
   font-size: 20px;
+  color: #777;
   animation: $animationType 0.5s forwards ease-in-out;
 }
 
@@ -58,11 +58,11 @@
 }
 
 .listItem {
-  cursor: pointer;
   font-size: 24px;
+  cursor: pointer;
   opacity: 0;
   animation: drop-in 0.5s forwards ease-in-out;
-  color: #806e59;
+  color: rgb(128, 110, 89);
 }
 
 .listItemOut {

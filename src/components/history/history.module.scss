@@ -1,20 +1,32 @@
 .root {
   padding: 50px;
   display: flex;
-  width:100%;
+  width: 100%;
   align-items: center;
   justify-items: start;
   flex-direction: column;
-  gap: 50px;
+  gap: 40px;
   background-color: rgba(0, 0, 0, 0.85);
+  overflow: scroll;
 }
 
 .root::-webkit-scrollbar {
   display: none;
 }
 
-.list {
+.meetingContainer {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 40px;
 }
+
+.meetingText {
+  letter-spacing: 1;
+  color: rgb(126, 98, 66)
+}
+
+
+

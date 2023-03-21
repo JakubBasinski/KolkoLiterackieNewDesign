@@ -23,7 +23,7 @@ export const fakeMovies: Movie[] = [
 ];
 
 export const Cards = ({ className }: CardsProps) => {
-    const { fakeBooksData } = useContext(DisplayContext);
+    const { fakeBooksData, searchQuery } = useContext(DisplayContext);
     const [fakeBooks, setFakeBooks] = useState(fakeBooksData);
     const [selectedBookId, setSelected] = useState<number | null>(null);
     let selectedBook = fakeBooks.filter((books) => {
@@ -36,20 +36,26 @@ export const Cards = ({ className }: CardsProps) => {
 
     useEffect(() => {
         setFakeBooks(fakeBooksData);
-        console.log('hiii');
     }, [fakeBooksData]);
 
     return (
         <div className={classNames(styles.root, className)}>
             {selectedBookId === null &&
-                fakeBooks.map((book, i) => (
-                    <Card book={book} key={book.id} handleSetSelected={handleSetSelected} />
-                ))}
+                fakeBooks
+                    .filter((a) => a.title.toLowerCase().includes(searchQuery))
+                    .map((book, i) => (
+                        <Card book={book} key={book.id} handleSetSelected={handleSetSelected} />
+                    ))}
 
             {selectedBook && (
                 <section className={styles.singleCardView}>
                     <div className={styles.xContainer}>
-                        <span onClick={() => {setSelected(null)}} className={styles.x}>
+                        <span
+                            onClick={() => {
+                                setSelected(null);
+                            }}
+                            className={styles.x}
+                        >
                             +
                         </span>
                     </div>
@@ -61,23 +67,25 @@ export const Cards = ({ className }: CardsProps) => {
                         <section className={styles.bookDetails}>
                             <div className={styles.subsection}>
                                 <p className={styles.text}>Title</p>
-                                <h1>{selectedBook.title}</h1>
+                                <h1 className={styles.title}>{selectedBook.title}</h1>
                             </div>
                             <div className={styles.subsection}>
                                 <p className={styles.text}>Rating [2 Votes]</p>
-                                <h4>{selectedBook.vote_average} / 5 </h4>
+                                <h4 className={styles.subTitle}>{selectedBook.vote_average} / 5 </h4>
                             </div>
                             <div className={styles.subsection}>
                                 <p className={styles.text}>Meeting Details</p>
-                                <h4>{selectedBook.release_date}, Poznan</h4>
+                                <h4 className={styles.subTitle}>
+                                    {selectedBook.release_date}, Poznan
+                                </h4>
                             </div>
                             <div className={styles.subsection}>
                                 <p className={styles.text}>Literats</p>
-                                <h4>Wojtek, Kuba, Daniel, Wambli</h4>
+                                <h4 className={styles.subTitle}>Wojtek, Kuba, Daniel, Wambli</h4>
                             </div>
                             <div className={styles.subsection}>
                                 <p className={styles.text}>Recommender</p>
-                                <h4>Wojtek </h4>
+                                <h4 className={styles.subTitle}>Wojtek </h4>
                             </div>
                         </section>
                         <section className={styles.bookActions}></section>

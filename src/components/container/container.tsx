@@ -15,8 +15,8 @@ export const Container = ({ className }: ContainerProps) => {
         <motion.div
             className={classNames(styles.root, className)}
             initial={{ x: -window.innerWidth, opacity: 0, display: 'none' }}
-            animate={{ x: 0, opacity: 1, transition: { delay: 1, duration: 1 }, display: 'flex' }}
-            exit={{ x: window.innerWidth, opacity: 0, transition: { duration: 1 } }}
+            animate={{ x: 0, opacity: 1, transition: { delay: 1, duration: 0.75 }, display: 'flex' }}
+            exit={{ x: window.innerWidth, opacity: 0, transition: { duration: 0.75 } }}
         >
             <Search />
             <Cards />

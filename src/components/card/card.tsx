@@ -32,9 +32,9 @@ export const Card = ({className, book, handleSetSelected }: CardProps) => {
         >
             <img src={book.poster_path} alt={book.title} className={styles.cardImage} />
             <div className={styles.cardDetails}>
-                <h1 className={styles.titleText}>{book.title}</h1>
-                <span className={styles.title}>{book.vote_average}</span>
-                <p className={styles.cardDescription}>{book.overview.substring(0, 220)}</p>
+                {/* <h1 className={styles.titleText}>{book.title}</h1> */}
+                {/* <span className={styles.title}>{book.vote_average}</span> */}
+                {/* <p className={styles.cardDescription}>{book.overview.substring(0, 220)}</p> */}
                 <button
                     onMouseEnter={(e) => {
                         e.stopPropagation();

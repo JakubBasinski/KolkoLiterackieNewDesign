@@ -1,3 +1,5 @@
+import { Meeting } from '../components/meeting/meeting';
+
 export interface Book {
     id: number;
     poster_path: string;
@@ -7,7 +9,14 @@ export interface Book {
     release_date: string;
 }
 
-
+export interface MeetingInterface {
+    id: number;
+    gallery: string[];
+    book: string;
+    date: string;
+    literats: string[];
+    place: string;
+}
 
 export const fakeBooks: Book[] = [
     {
@@ -85,7 +94,49 @@ export const fakeBooks: Book[] = [
         vote_average: 5,
         release_date: '4/8/2002',
     },
+];
 
+export const fakeMeetings: MeetingInterface[] = [
+    {
+        id: 1,
+        gallery: ['/images/Photos/Antychryst1.jpg', '/images/gallery/2.png', '/images/gallery/3.png'],
+        book: 'Antychryst',
+        date: '4/8/2008',
+        literats: ['Wojtek', 'Daniel', 'Wambli', 'Kuba'],
+        place: 'Ptaszkowska',
+    },
+    {
+        id: 2,
+        gallery: ['/images/gallery/1.png', '/images/gallery/2.png', '/images/gallery/3.png'],
+        book: 'Nigdy nie umiera wczoraj',
+        date: '12/8/2009',
+        literats: ['Wojtek', 'Daniel', 'Wambli', 'Kuba'],
+        place: 'Limbo',
+    },
+    {
+        id: 3,
+        gallery: ['/images/gallery/1.png', '/images/gallery/2.png', '/images/gallery/3.png'],
+        book: 'Antychryst',
+        date: '3/3/2010',
+        literats: ['Wojtek', 'Daniel', 'Wambli', 'Kuba'],
+        place: 'Zapomniana ambasada Rosji w Rakowniewicach',
+    },
+    {
+        id: 4,
+        gallery: ['/images/gallery/1.png', '/images/gallery/2.png', '/images/gallery/3.png'],
+        book: 'Nigdy nie umiera wczoraj',
+        date: '1/10/2011',
+        literats: ['Wojek', 'Daniel', 'Wambli', 'Kuba'],
+        place: 'E-Pieklo',
+    },
+    {
+        id: 5,
+        gallery: ['/images/gallery/1.png', '/images/gallery/2.png', '/images/gallery/3.png'],
+        book: 'Antychryst',
+        date: '4/3/2012',
+        literats: ['Wojtek', 'Daniel', 'Wambli', 'Kuba'],
+        place: 'Ptaszkowska',
+    },
 ];
 
 // export const fakeFavorites = [

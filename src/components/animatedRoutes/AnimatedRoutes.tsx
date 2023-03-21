@@ -6,6 +6,8 @@ import { Container } from '../container/container';
 import { useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Comments from '../comments/Comments';
+import { History } from '../history/History';
+import { Login } from '../login/Login';
 export interface AnimatedPros {
     className?: string;
 }
@@ -17,7 +19,8 @@ export const AnimatedRoutes = ({ className }: AnimatedPros) => {
             <AnimatePresence>
                 <Routes location={location} key={location.pathname}>
                     <Route path="/books/" element={<Container />} />
-                    {/* <Route path="/us" element={<Comments currentUserId={'1'} />} /> */}
+                    <Route path="/history" element={<History />} />
+                    <Route path="/login" element={<Login />} />
                     {/* <Route path="/fav" element={<Favorites />} /> */}
                 </Routes>
             </AnimatePresence>

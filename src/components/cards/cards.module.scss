@@ -51,6 +51,7 @@
   display: flex;
   align-items: center;
   border-radius: 5px;
+  overflow: hidden;
 }
 
 .bookImage {
@@ -74,6 +75,7 @@
 
 .text {
   color: #777;
+  font-family: 'Artifex CF';
 }
 
 .bookActions {
@@ -102,4 +104,12 @@ h3,
 h4 {
   margin: 0;
   padding: 0;
+}
+
+.title{
+  font-size: 30px;
+}
+
+.subTitle{
+  font-size: 20px;
 }

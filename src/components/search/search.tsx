@@ -1,19 +1,22 @@
 import styles from './search.module.scss';
 import classNames from 'classnames';
-import { useState } from 'react';
-
+import { useContext, useState } from 'react';
+import DisplayContext from '../../store/display-context';
 
 export interface SearchProps {
     className?: string;
 }
 
 export const Search = ({ className }: SearchProps) => {
-    const [query, setQuery] = useState('');
+    const displayCtx = useContext(DisplayContext);
+
     return (
         <div className={classNames(styles.root, className)}>
             <input
                 className={styles.searchInput}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(e) => {
+                    displayCtx.searchForBook(e.target.value);
+                }}
                 placeholder="Enter title"
             />
             <button className={styles.searchButton}>Search</button>

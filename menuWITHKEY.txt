@@ -1,0 +1,168 @@
+import styles from './menu.module.scss';
+import classNames from 'classnames';
+import { BooksMenu } from './booksMenu/BooksMenu';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { HistoryMenu } from './historyMenu/HistoryMenu';
+import { motion, useMotionValue } from 'framer-motion';
+
+export interface MenuProps {
+    className?: string;
+}
+
+export const Menu = ({ className }: MenuProps) => {
+    const y = useMotionValue(0);
+    const x = useMotionValue(0);
+    const defaultPosition = { x: x, y: y };
+    const [position, setPosition] = useState(defaultPosition);
+    const [menuSelected, setSelectedMenu] = useState<string | null>('');
+    const [classes, setClasses] = useState<string | null>('');
+    const [disabled, setDisabled] = useState(false);
+    const [openLion, setOpenLion] = useState('');
+    const [isHiddenLogo, setHiddenLogo] = useState(true);
+    const [isKeyGrabbed, setIsKeyGrabbed] = useState(false);
+
+    function handleClick(): void {
+        setDisabled(true);
+        setTimeout(() => {
+            setDisabled(false);
+        }, 2000);
+    }
+
+    return (
+        <div className={classNames(styles.root, className)}>
+            <div className={styles.logoWrapper}>
+                <div className={styles.insideLogoWrapper}>
+                    <img
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setOpenLion('hidden');
+                            setTimeout(() => {
+                                setHiddenLogo(false);
+                            }, 1000);
+                        }}
+                        src="/images/gallery/lion.png"
+                        className={
+                            !openLion
+                                ? styles.logo
+                                : openLion === 'hidden'
+                                ? styles.logoOpen
+                                : styles.logoBack
+                        }
+                        alt="logo"
+                    />
+                </div>
+                <div
+                    onClick={() => {}}
+                    className={!isHiddenLogo ? styles.veryHiddenLogin : styles.hiddenLogin}
+                >
+                    <motion.img
+                        dragConstraints={{ top: 0, right: 0, bottom: 0, left: 0 }}
+                        style={{ x: position.x, y: position.y }}
+                        drag={true}
+                        whileTap={{
+                            cursor: 'grabbing',
+                        }}
+                        whileDrag={{
+                            cursor: 'grabbing',
+                        }}
+                        onDragEnd={(e) => {
+                            setOpenLion('back');
+                            setHiddenLogo(true);
+                            setIsKeyGrabbed(false);
+                        }}
+                        src="/images/key.png"
+                        alt="key"
+                        className={styles.key}
+                        onDrag={(event, info) => {
+                            setIsKeyGrabbed(true);
+                            position.x.set(info.offset.x);
+                            position.y.set(info.offset.y);
+                        }}
+                    />
+                </div>
+            </div>
+            <div className={styles.linkWrapper}>
+                <Link
+                    className={!disabled ? styles.bookLink : styles.bookLinkDisabled}
+                    to={menuSelected === 'books' ? '/' : '/books'}
+                    onClick={
+                        menuSelected === ''
+                            ? () => {
+                                  setSelectedMenu('books');
+                                  setClasses('booksClass');
+                                  handleClick();
+                              }
+                            : menuSelected === 'books'
+                            ? () => {
+                                  setClasses('');
+                                  setTimeout(() => {
+                                      setSelectedMenu('');
+                                  }, 1000);
+
+                                  handleClick();
+                              }
+                            : () => {
+                                  setTimeout(() => {
+                                      setSelectedMenu('books');
+                                  }, 1000);
+                                  setClasses('booksClass');
+                                  handleClick();
+                              }
+                    }
+                >
+                    Books
+                </Link>
+                {menuSelected === 'books' && <BooksMenu classes={classes} />}
+                <Link
+                    to={menuSelected === 'history' ? '/' : '/history'}
+                    onClick={
+                        menuSelected === ''
+                            ? () => {
+                                  setSelectedMenu('history');
+                                  setClasses('historyClass');
+                                  handleClick();
+                              }
+                            : menuSelected === 'history'
+                            ? () => {
+                                  setClasses('');
+                                  setTimeout(() => {
+                                      setSelectedMenu('');
+                                  }, 1000);
+
+                                  handleClick();
+                              }
+                            : () => {
+                                  setClasses('historyClass');
+                                  setTimeout(() => {
+                                      setSelectedMenu('history');
+                                  }, 1000);
+                                  handleClick();
+                              }
+                    }
+                    className={!disabled ? styles.bookLink : styles.bookLinkDisabled}
+                >
+                    History
+                </Link>
+                {menuSelected === 'history' && <HistoryMenu classes={classes} />}
+            </div>
+
+            <motion.div
+                className={styles.doorsWrapper}
+                initial={{ opacity: 0, display: 'none' }}
+                animate={{
+                    opacity: 1,
+                    transition: { delay: 1, duration: 0.75 },
+                    display: 'flex',
+                }}
+                exit={{ opacity: 0, transition: { duration: 0.75 } }}
+            >
+                <img
+                    src="./images/keyhole.png"
+                    alt="door"
+                    className={!isKeyGrabbed ? styles.doors : styles.doorsVisible}
+                />
+            </motion.div>
+        </div>
+    );
+};

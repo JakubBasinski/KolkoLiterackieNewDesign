@@ -1,30 +1,32 @@
-import styles from './booksMenu.module.scss';
+import styles from './historyMenu.module.scss';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
-import { genre, sortBy } from '../utils';
+import { sortHistory } from '../utils';
 import DisplayContext from '../../../store/display-context';
+
 
 export interface MenuProps {
     className?: string;
     classes: string | null;
 }
 
-export const BooksMenu = (({ className, classes }: MenuProps) => {
+export const HistoryMenu = ({ className, classes }: MenuProps) => {
     const displayCtx = useContext(DisplayContext);
     return (
         <div className={classNames(styles.root, className)}>
-            <span className={classes === 'booksClass' ? styles.title : styles.titleOut}>
+            <span className={classes === 'historyClass' ? styles.title : styles.titleOut}>
                 Sort By
             </span>
-            <hr className={classes === 'booksClass' ? styles.sortByLine : styles.sortByLineOut} />
+            <hr className={classes === 'historyClass' ? styles.sortByLine : styles.sortByLineOut} />
             <ul className={styles.list}>
-                {sortBy.map((item, i) => (
+                {sortHistory.map((item, i) => (
                     <li
-                        className={classes === 'booksClass' ? styles.listItem : styles.listItemOut}
+                        className={
+                            classes === 'historyClass' ? styles.listItem : styles.listItemOut
+                        }
                         key={i}
                         onClick={() => {
-                            displayCtx.editBooksData(item);
-                    
+                            displayCtx.editHistoryData(item);
                         }}
                     >
                         {item}
@@ -45,4 +47,4 @@ export const BooksMenu = (({ className, classes }: MenuProps) => {
             </ul> */}
         </div>
     );
-});
+};

@@ -8,6 +8,7 @@ import { AnimatePresence } from 'framer-motion';
 import Comments from '../comments/Comments';
 import { History } from '../history/History';
 import { Login } from '../login/Login';
+import { MeetingManagement } from '../MeetingManagement/MeetingManagement';
 export interface AnimatedPros {
     className?: string;
 }
@@ -21,7 +22,7 @@ export const AnimatedRoutes = ({ className }: AnimatedPros) => {
                     <Route path="/books/" element={<Container />} />
                     <Route path="/history" element={<History />} />
                     <Route path="/login" element={<Login />} />
-                    {/* <Route path="/fav" element={<Favorites />} /> */}
+                    <Route path="/meetings" element={<MeetingManagement />} />
                 </Routes>
             </AnimatePresence>
         </div>

@@ -1,7 +1,7 @@
 import styles from './booksMenu.module.scss';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
-import { genre, sortBy } from '../utils';
+import {  sortBy } from '../utils';
 import DisplayContext from '../../../store/display-context';
 
 export interface MenuProps {
@@ -16,7 +16,7 @@ export const BooksMenu = (({ className, classes }: MenuProps) => {
             <span className={classes === 'booksClass' ? styles.title : styles.titleOut}>
                 Sort By
             </span>
-            <hr className={classes === 'booksClass' ? styles.sortByLine : styles.sortByLineOut} />
+            {/* <hr className={classes === 'booksClass' ? styles.sortByLine : styles.sortByLineOut} /> */}
             <ul className={styles.list}>
                 {sortBy.map((item, i) => (
                     <li

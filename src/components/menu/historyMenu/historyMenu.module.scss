@@ -1,7 +1,7 @@
 .root {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  justify-content: center;
   width: 100%;
   gap: 5px;
   margin-top: 10px;
@@ -16,25 +16,23 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: center;
   list-style-type: none;
-  justify-items: start;
+  justify-items: center;
   padding: 0px;
   gap: 20px;
 }
 
-@mixin sortByLine-style($animationType, $opacity) {
-  opacity: $opacity;
-  width: 100%;
-  color: #777;
-  animation: $animationType 0.5s forwards ease-in-out;
-  animation-delay: 0.1s;
-}
+
 
 @mixin title-style($animationType) {
-  font-size: 20px;
   color: #777;
+  font-size: 20px;
+  margin: auto;
   animation: $animationType 0.5s forwards ease-in-out;
+  padding: 10px;
+  border-bottom: 1px solid grey;
+  width: 50%;
 }
 
 .title {
@@ -43,14 +41,6 @@
 
 .titleOut {
   @include title-style(drop-out);
-}
-
-.sortByLine {
-  @include sortByLine-style(drop-in, 0);
-}
-
-.sortByLineOut {
-  @include sortByLine-style(drop-out, 1);
 }
 
 .list {

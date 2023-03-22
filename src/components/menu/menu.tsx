@@ -141,7 +141,7 @@ export const Menu = ({ className }: MenuProps) => {
                                   handleClick();
                               }
                             : () => {
-                                  setClasses('meetingsClass');
+                                  setClasses('meetingClass');
                                   setTimeout(() => {
                                       setSelectedMenu('meetings');
                                   }, 1000);
@@ -152,7 +152,7 @@ export const Menu = ({ className }: MenuProps) => {
                 >
                     Meetings
                 </Link>
-                {menuSelected === 'history' && <MeetingMenu classes={classes} />}
+                {menuSelected === 'meetings' && <MeetingMenu classes={classes} />}
             </div>
         </div>
     );

@@ -17,7 +17,6 @@ export const HistoryMenu = ({ className, classes }: MenuProps) => {
             <span className={classes === 'historyClass' ? styles.title : styles.titleOut}>
                 Sort By
             </span>
-            <hr className={classes === 'historyClass' ? styles.sortByLine : styles.sortByLineOut} />
             <ul className={styles.list}>
                 {sortHistory.map((item, i) => (
                     <li

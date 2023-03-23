@@ -1,0 +1,31 @@
+.root {
+  padding: 50px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-items: start;
+  flex-direction: column;
+  gap: 40px;
+  background-color: rgba(0, 0, 0, 0.85);
+  overflow: scroll;
+}
+
+.meetingForm {
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  border-radius: 10px;
+  background-color: rgba(38, 29, 27, 0.661);
+}
+
+.formTitle {
+  margin: auto;
+  color: rgb(126, 98, 66);
+  letter-spacing: 2;
+  font-size: '1.6em';
+  font-weight: 600;
+}

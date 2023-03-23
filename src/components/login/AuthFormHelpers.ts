@@ -1,16 +1,7 @@
-export const FormControlSx = {
-    width: '100%',
-    gap: 3,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingY: '50px',
-    borderRadius: '10px',
-    color: 'grey',
-};
+import { z } from 'zod';
 
 export const formSubmitionText = {
-    paddingBottom: 1,
-    paddingLeft: 1.1,
+    margin: 'auto',
     color: 'rgb(126, 98, 66)',
     letterSpacing: 2,
     fontSize: '1.6em',
@@ -38,6 +29,7 @@ export const formInputs = {
 };
 
 export const submitButton = {
+    margin: 'auto',
     width: '200px',
     paddingX: '10px',
     paddingY: '5px',
@@ -68,10 +60,24 @@ export const logoutButton = {
     },
 };
 
-// align-items: center;
-// justify-content: start;
-// margin: 80px;
-// flex-direction: column;
-
-// -webkit-animation: fade-in 0.75s cubic-bezier(0.6, -0.28, 0.735, 0.045) both;
-// animation: fade-in 0.75s cubic-bezier(0.6, -0.28, 0.735, 0.045) both;
+export const submitSchema = z
+    .object({
+        name: z.string().min(1, { message: 'Enter name' }),
+        email: z.string().email().min(1, { message: 'Enter email' }),
+        password: z.string().min(1, { message: 'Enter password' }),
+        confirmation: z.string().min(1, { message: 'Enter password confrimation' }),
+    })
+    .refine((data) => data.password === data.confirmation, {
+        message: "Provided passwords don't match",
+        path: ['confirmation'],
+    });
+export const loginSchema = z.object({
+    email: z.string().min(1, { message: 'Enter email' }).email(),
+    password: z.string().min(1, { message: 'Enter password' }),
+});
+export const initialValues = {
+    name: '',
+    email: '',
+    password: '',
+    confirmation: '',
+};

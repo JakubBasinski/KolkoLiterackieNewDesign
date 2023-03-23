@@ -10,6 +10,23 @@
   overflow: scroll;
 }
 
+.error {
+  text-align: start;
+  color: rgb(168, 24, 24);
+}
+
+.formControl {
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  border-radius: 10px;
+  background-color: rgba(38, 29, 27, 0.661);
+}
+
 .productsList {
   min-height: 60%;
   padding: 20px;

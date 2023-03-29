@@ -10,16 +10,29 @@
   overflow: scroll;
 }
 
+.customArrowIcon {
+  color: rgb(126, 98, 66);
+}
+
+.preheader {
+  display: flex;
+  width: 100%;
+}
+
+.paperStyled {
+  background-color: #191312;
+}
+
 .meetingForm {
   width: 100%;
   flex-direction: column;
-  display: flex;
   gap: 20px;
   justify-content: center;
   align-items: center;
-  padding: 50px;
+  padding: 30px;
   border-radius: 10px;
   background-color: rgba(38, 29, 27, 0.661);
+  display: flex;
 }
 
 .formTitle {
@@ -28,4 +41,335 @@
   letter-spacing: 2;
   font-size: '1.6em';
   font-weight: 600;
+}
+
+.maincontainer {
+  width: 100%;
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.rightSide {
+  height: 100%;
+  display: flex;
+  flex: 1 1 1;
+  min-width: 300px;
+  gap: 10px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.leftSide {
+  min-width: 300px;
+  gap: 30px;
+  display: flex;
+  flex: 1 1 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.downLeft {
+  min-width: 300px;
+  gap: 0px;
+  flex-wrap: wrap;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.downRight {
+  min-width: 300px;
+  gap: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type='file'] {
+  font-size: 0px;
+}
+
+input[type='file']::file-selector-button {
+  border: 2px solid rgb(126, 98, 66);
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: sans-serif;
+  letter-spacing: 0.1em;
+  text-align: center;
+  color: rgb(126, 98, 66);
+  text-decoration: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+input[type='file']::file-selector-button:hover {
+  text-decoration: none;
+  color: black;
+  padding: 10px 20px;
+  background-color: rgb(126, 98, 66);
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: sans-serif;
+  letter-spacing: 0.1em;
+  text-align: center;
+  transition: 0.5s;
+}
+
+.coverPreview {
+  width: 100%;
+  max-width: 250px;
+  max-height: 250px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.selectedItem {
+  margin-right: 10px;
+  color: #806e59;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  border: rgb(0, 255, 229) 1px solid;
+}
+
+.photoWrapper {
+  min-height: 200px;
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.photo:hover {
+  // animation-play-state: paused;
+}
+
+.photo {
+  height: 500px;
+  position: absolute;
+  animation-duration: 30s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-name: float-right;
+  transform: translateX(-100%);
+  z-index: 0;
+}
+
+@keyframes float-right {
+  0% {
+    left: 0;
+  }
+  40% {
+    opacity: 0.2;
+  }
+  40% {
+    left: 100%;
+    opacity: 0;
+  }
+  50% {
+    left: 100%;
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 0.2;
+    left: 0;
+  }
+  100% {
+    left: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes collide {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(180deg);
+  }
+}
+
+.up {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+  align-items: start;
+}
+
+.down {
+  display: flex;
+  padding: 20px;
+  gap: 20px;
+  justify-content: center;
+  align-items: end;
+}
+
+.galleryphoto {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.photoWrapper {
+  width: auto;
+}
+
+.photoWrapper:hover::after {
+  content: 'X';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgb(73, 57, 38);
+  font-size: 200px;
+  transform: 1s;
+  background-color: #0101015a;
+  pointer-events: none;
+}
+
+.textImages {
+  padding: 0;
+  margin: 0;
+  font-size: 30px;
+  letter-spacing: 2px;
+}
+
+.galleryWrapper {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  justify-content: center;
+}
+
+.submitButton {
+  display: flex;
+  width: 280px;
+  background-color: transparent;
+  border: solid 8px rgb(126, 98, 66);
+  border-radius: 10px;
+  padding: 10px 20px;
+  align-items: center;
+  color: rgb(126, 98, 66);
+  margin-top: auto;
+}
+
+.submitButton:hover {
+  background-color: rgb(68, 56, 42);
+  color: rgb(126, 98, 66);
+  cursor: pointer;
+  border: solid 8px black;
+  color: black;
+}
+
+.submitButton:hover svg {
+  color: black;
+}
+
+.submitButton:hover .addWrapper .textAdd {
+  animation: changeColor infinite 3s;
+}
+.submitButton:hover .addWrapper .textThe {
+  animation: changeColor infinite 3s;
+  animation-delay: 1s;
+}
+
+.submitButton:hover .addWrapper .textMeeting {
+  animation: changeColor infinite 3s;
+  animation-delay: 2s;
+}
+
+@keyframes changeColor {
+  0% {
+    color: rgb(144, 136, 127);
+  }
+  33% {
+    color: rgb(144, 136, 127);
+  }
+  34% {
+    color: black;
+  }
+  100% {
+    color: black;
+  }
+}
+
+.textAdd {
+  transform: translateX(10%);
+  text-align: start;
+  margin: 0;
+  padding: 0;
+  font-size: 34px;
+  font-weight: 700;
+
+  width: auto;
+}
+
+.textThe {
+  transform: translateX(40%);
+
+  text-align: start;
+  margin: 0;
+  padding: 0;
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.textMeeting {
+  text-align: start;
+  transform: translateX(0%);
+  margin: 0;
+  padding: 0;
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.addWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+}
+
+.errorStyle {
+  text-align: start;
+  color: rgb(168, 24, 24);
+  width: 100%;
+}
+
+.errorStyleCover {
+  text-align: start;
+  color: rgb(168, 24, 24);
+  width: 200px;
+}
+
+.customPopper {
+  background-color: 'red';
+  color: 'white';
 }

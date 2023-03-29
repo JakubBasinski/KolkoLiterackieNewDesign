@@ -71,6 +71,8 @@ export const submitSchema = z
         message: "Provided passwords don't match",
         path: ['confirmation'],
     });
+
+    
 export const loginSchema = z.object({
     email: z.string().min(1, { message: 'Enter email' }).email(),
     password: z.string().min(1, { message: 'Enter password' }),

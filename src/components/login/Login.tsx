@@ -20,7 +20,7 @@ export interface MenuProps {
 export const Login = ({ className }: MenuProps) => {
     const [isLogin, setIsLogin] = useState(true);
     const schema = isLogin ? loginSchema : submitSchema;
-    const { register, control, handleSubmit, formState } = useForm({
+    const { register, handleSubmit, formState } = useForm({
         defaultValues: initialValues,
         resolver: zodResolver(schema),
     });

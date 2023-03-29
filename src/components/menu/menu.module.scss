@@ -1,6 +1,7 @@
 .root {
   position: relative;
   flex-basis: 10%;
+  min-width: 300px;
   flex-grow: 2;
   flex-shrink: 0;
   display: flex;
@@ -89,8 +90,6 @@
 
 .loginButton:hover {
   text-decoration: none;
-  width: 200px;
-  height: 100px;
   color: black;
   padding: 10px 20px;
   background-color: rgb(126, 98, 66);

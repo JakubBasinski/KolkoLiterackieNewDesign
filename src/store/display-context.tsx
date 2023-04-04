@@ -13,6 +13,11 @@ interface DisplayCotnextType {
     searchQuery: string;
     fakeMeetingsData: MeetingInterface[];
     editHistoryData: (item: string) => void;
+    addingMeetingData: (meeting: MeetingInterface) => void;
+    editMeetingData: (meeting: MeetingInterface, updatedMeeting: MeetingInterface) => void;
+    isWelcomePage: boolean;
+    setWelcomePage: (value: boolean) => void;
+ 
 }
 
 const DisplayContext = React.createContext<DisplayCotnextType>({
@@ -24,6 +29,11 @@ const DisplayContext = React.createContext<DisplayCotnextType>({
     searchQuery: '',
     fakeMeetingsData: [],
     editHistoryData: (item: string) => {},
+    addingMeetingData: (meet: MeetingInterface) => {},
+    editMeetingData: (meeting: MeetingInterface, updatedMeeting: MeetingInterface) => {},
+    isWelcomePage: true,
+    setWelcomePage: (value: boolean) => {},
+
 });
 
 type Props = {
@@ -31,14 +41,28 @@ type Props = {
 };
 
 export const DisplayContextProvider = ({ children }: Props) => {
+    const [welcomeGuest, setWelcomeGuest] = useState(true);
     const [fakeBookList, setFakeBooks] = useState(fakeBooks);
     const [isBookPage, setIsBookPage] = useState(false);
     const [query, setQuery] = useState('');
-
     const [fakeHisotryList, setFakeHistory] = useState(fakeMeetings);
-
     const handleSetQuery = (e: string) => {
         setQuery(e);
+    };
+
+
+    const addingMeeting = (meeting: MeetingInterface) => {
+        console.log('addM<eetingCtX works');
+        setFakeHistory((meetings) => [...meetings, meeting]);
+    };
+
+    const editMeeting = (meeting: MeetingInterface, updatedMeeting: MeetingInterface) => {
+        const newList = [...fakeHisotryList];
+        const index = newList.indexOf(meeting);
+        newList[index] = updatedMeeting;
+        console.log(newList);
+        setFakeHistory(newList);
+        console.log('edited!');
     };
 
     const editHistory = (action: any) => {
@@ -93,6 +117,12 @@ export const DisplayContextProvider = ({ children }: Props) => {
         setIsBookPage((p) => !p);
     };
 
+    const welcomeGuestHandler = (value: boolean) => {
+        setWelcomeGuest(value);
+    };
+
+   
+
     const contextValue = {
         fakeBooksData: fakeBookList,
         openBookPage: isBookPage,
@@ -102,6 +132,11 @@ export const DisplayContextProvider = ({ children }: Props) => {
         searchQuery: query,
         fakeMeetingsData: fakeHisotryList,
         editHistoryData: editHistory,
+        addingMeetingData: addingMeeting,
+        editMeetingData: editMeeting,
+        isWelcomePage: welcomeGuest,
+        setWelcomePage: welcomeGuestHandler,
+    
     };
 
     return <DisplayContext.Provider value={contextValue}>{children}</DisplayContext.Provider>;

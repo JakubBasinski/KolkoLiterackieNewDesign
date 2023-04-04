@@ -1,12 +1,13 @@
-import { Box } from '@mui/material';
-import { SingleComment } from '../../utils/helpers';
-import cls from './Comment.module.css';
+import { SingleComment } from '../utils/helpers';
+import cls from './Comment.module.scss';
 import CommentForm from './CommentForm';
 import {
     getComments as getCommentsApi,
     createComment as createCommentApi,
     deleteComment as deleteCommentApi,
-} from '../../utils/helpers';
+} from '../utils/helpers';
+
+
 
 interface Props {
     comment: SingleComment;
@@ -30,6 +31,8 @@ const Comment = ({
     parentId = null,
     updateComment
 }: Props) => {
+    //@ts-ignore
+
     const fiveMinutes: number = 300000;
     const timePassed = new Date().getTime() - new Date(comment.createdAt).getTime() > fiveMinutes;
     const canReply = Boolean(currentUserId);
@@ -49,13 +52,13 @@ const Comment = ({
     //   });
 
     return (
-        <Box className={cls.comment}>
-            <Box className={cls.commentRightPart}>
-                <Box className={cls.commentContent}>
-                    <Box className={cls.commentDate}>{createdAt}</Box>
-                    <Box className={cls.commentAuthor}>{comment.username}</Box>
-                </Box>
-                {!isEditing && <Box className={cls.commentText}>{comment.body}</Box>}
+        <div className={cls.comment}>
+            <div className={cls.commentRightPart}>
+                <div className={cls.commentContent}>
+                    <div className={cls.commentDate}>{createdAt}</div>
+                    <div className={cls.commentAuthor}>{comment.username}</div>
+                </div>
+                {!isEditing && <div className={cls.commentText}>{comment.body}</div>}
                 {isEditing && (
                     <CommentForm
                         submitLabel="Edit"
@@ -69,36 +72,36 @@ const Comment = ({
                         }}
                     />
                 )}
-                <Box className={cls.commentActions}>
+                <div className={cls.commentActions}>
                     {canReply && (
-                        <Box
+                        <div
                             className={cls.commentAction}
                             onClick={() => {
                                 setActiveComment({ id: comment.id, type: 'replying' });
                             }}
                         >
                             Reply
-                        </Box>
+                        </div>
                     )}
                     {canEdit && (
-                        <Box
+                        <div
                             className={cls.commentAction}
                             onClick={() => {
                                 setActiveComment({ id: comment.id, type: 'editing' });
                             }}
                         >
                             Edit
-                        </Box>
+                        </div>
                     )}
                     {canDelete && (
-                        <Box
+                        <div
                             className={cls.commentAction}
                             onClick={() => deleteComment(comment.id)}
                         >
                             Delete
-                        </Box>
+                        </div>
                     )}
-                </Box>
+                </div>
                 {isReplying && (
                     <CommentForm
                         submitLabel="Reply"
@@ -113,7 +116,7 @@ const Comment = ({
                     />
                 )}
                 {replies.length > 0 && (
-                    <Box className={cls.replies}>
+                    <div className={cls.replies}>
                         {replies.map((reply) => (
                             <Comment
                                 key={reply.id}
@@ -128,10 +131,10 @@ const Comment = ({
                                 updateComment={updateComment}
                             />
                         ))}
-                    </Box>
+                    </div>
                 )}
-            </Box>
-        </Box>
+            </div>
+        </div>
     );
 };
 

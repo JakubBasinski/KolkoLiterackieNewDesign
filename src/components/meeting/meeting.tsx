@@ -16,7 +16,6 @@ export interface MeetingProps {
 }
 
 export const Meeting = ({ meeting }: MeetingProps) => {
-    const slides = fakeMeetings[0].gallery;
     return (
         <div className={styles.meetingCard}>
             <section className={styles.leftSection}>
@@ -36,7 +35,7 @@ export const Meeting = ({ meeting }: MeetingProps) => {
                     </div>
                     <div className={styles.subsection}>
                         <p className={styles.text}>Date</p>
-                        <h4 className={styles.subTitle}> {meeting.date} </h4>
+                        {/* <h4 className={styles.subTitle}> {meeting.date} </h4> */}
                     </div>
 
                     <div className={styles.subsection}>

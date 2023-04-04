@@ -1,9 +1,6 @@
 .root {
   position: relative;
-  flex-basis: 10%;
-  min-width: 300px;
-  flex-grow: 2;
-  flex-shrink: 0;
+  min-width: 250px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -12,15 +9,18 @@
   background-color: rgba(0, 0, 0, 0.3);
   align-items: center;
   overflow: scroll;
-}
 
-.linkWrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  width: 100%;
-  gap: 10px;
-} 
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    padding: 0px;
+    gap: 40px;
+    overflow: auto;
+    flex-grow:1
+  }
+}
 
 @mixin bookLinkStyle {
   min-width: 150px;
@@ -29,6 +29,95 @@
   text-decoration: none;
   color: rgb(126, 98, 66);
   letter-spacing: 1px;
+
+  @media screen and (max-width: 768px) {
+    min-width: 150px;
+    font-size: 58px;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 1px;
+    color: rgba(0, 0, 0, 0.893);
+    -webkit-text-stroke: 1.5px rgb(255, 255, 255);
+    &:hover {
+      color: rgba(255, 255, 255, 0.893);
+      -webkit-text-stroke: 1.5px rgb(0, 0, 0);
+    }
+  }
+}
+
+.logoWrapper {
+  width: 100%;
+  position: relative;
+  @media screen and (max-width: 768px) {
+    width: auto;
+    display: none;
+  }
+}
+
+.insideLogoWrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.linkWrapperSmall {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  height: 100%;
+  justify-content: center;
+
+  ;
+  @media screen and (min-width: 769px) {
+    display: none;
+    
+  }
+}
+
+.linkWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  width: 100%;
+  gap: 10px;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+}
+
+.logo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  z-index: 1;
+  @media screen and (max-width: 768px) {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+.logoOpen {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  box-shadow: inset 20px black;
+  animation: lionDoorOpen 2s ease-in-out forwards;
+  @media screen and (max-width: 768px) {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+.logoBack {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  box-shadow: inset 20px black;
+  animation: lionDoorClose 2s ease-in-out forwards;
+  @media screen and (max-width: 768px) {
+    width: 100px;
+    height: 100px;
+  }
 }
 
 .bookLink {
@@ -42,33 +131,32 @@
   opacity: 0.5;
 }
 
-.logo {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  box-shadow: inset 20px black;
-  z-index: 1;
-}
+.samurajButton {
+  border: solid rgb(255, 255, 255) 1px;
+  background-color: rgba(255, 255, 255, 0.364);
+  border-radius: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  letter-spacing: 1px;
+  padding: 5px 30px;
+  font-size: 58px;
+  font-weight: 700;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.893);
+  letter-spacing: 1px;
+  -webkit-text-stroke: 2px rgb(255, 255, 255);
 
-.logoOpen {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  box-shadow: inset 20px black;
-  animation: lionDoorOpen 2s ease-in-out forwards;
-}
-
-.logoBack {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  box-shadow: inset 20px black;
-  animation: lionDoorClose 2s ease-in-out forwards;
-}
-
-.logoWrapper {
-  width: 100%;
-  position: relative;
+  &:hover {
+    color: rgba(255, 255, 255, 0.893);
+    -webkit-text-stroke: 1.5px rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.364);
+  }
 }
 
 .loginButton {
@@ -175,4 +263,3 @@
     opacity: 1;
   }
 }
-

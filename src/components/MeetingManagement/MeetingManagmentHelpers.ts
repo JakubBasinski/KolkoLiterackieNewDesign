@@ -43,7 +43,4 @@ export const multiSelect = {
     },
 };
 
-
-export const dataInput = {
-   
-}
+export const dataInput = {};

@@ -1,6 +1,11 @@
 .root {
-  flex-basis: 70%;
   flex-grow: 5;
   flex-shrink: 5;
   display: flex;
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
 }
+

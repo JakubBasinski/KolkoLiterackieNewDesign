@@ -5,7 +5,7 @@ import { Movie } from '../card/card';
 import { useContext } from 'react';
 import DisplayContext from '../../store/display-context';
 import { useEffect, useState } from 'react';
-import Comments from '../comments/Comments';
+import Comments from '../../comments/Comments';
 
 export interface CardsProps {
     className?: string;

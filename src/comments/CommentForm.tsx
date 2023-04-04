@@ -1,5 +1,5 @@
 import React from 'react';
-import cls from './Comment.module.css';
+import cls from './Comment.module.scss';
 
 interface Props {
     submitLabel: string;

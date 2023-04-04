@@ -16,6 +16,7 @@ export interface MeetingInterface {
     date: string;
     literats: string[];
     place: string;
+    cover: string;
 }
 
 export const fakeBooks: Book[] = [
@@ -99,27 +100,30 @@ export const fakeBooks: Book[] = [
 export const fakeMeetings: MeetingInterface[] = [
     {
         id: 1,
-        gallery: ['/images/Photos/Antychryst1.jpg', '/images/gallery/2.png', '/images/gallery/3.png'],
+        gallery: ['/images/gallery/2.png', '/images/gallery/3.png'],
         book: 'Antychryst',
         date: '4/8/2008',
         literats: ['Wojtek', 'Daniel', 'Wambli', 'Kuba'],
         place: 'Ptaszkowska',
+        cover: '/images/Nawyki.jpg',
     },
     {
         id: 2,
         gallery: ['/images/gallery/1.png', '/images/gallery/2.png', '/images/gallery/3.png'],
-        book: 'Nigdy nie umiera wczoraj',
+        book: 'Jedz jabłka młocie',
         date: '12/8/2009',
         literats: ['Wojtek', 'Daniel', 'Wambli', 'Kuba'],
         place: 'Limbo',
+        cover: '/images/Negocjuj.jpg',
     },
     {
         id: 3,
         gallery: ['/images/gallery/1.png', '/images/gallery/2.png', '/images/gallery/3.png'],
-        book: 'Antychryst',
+        book: 'Na wschód od Edenu',
         date: '3/3/2010',
         literats: ['Wojtek', 'Daniel', 'Wambli', 'Kuba'],
         place: 'Zapomniana ambasada Rosji w Rakowniewicach',
+        cover: '/images/Lean.jpg',
     },
     {
         id: 4,
@@ -128,14 +132,16 @@ export const fakeMeetings: MeetingInterface[] = [
         date: '1/10/2011',
         literats: ['Wojek', 'Daniel', 'Wambli', 'Kuba'],
         place: 'E-Pieklo',
+        cover: '/images/Antychryst.jpg',
     },
     {
         id: 5,
         gallery: ['/images/gallery/1.png', '/images/gallery/2.png', '/images/gallery/3.png'],
-        book: 'Antychryst',
+        book: 'Konsantyn Leopold',
         date: '4/3/2012',
         literats: ['Wojtek', 'Daniel', 'Wambli', 'Kuba'],
         place: 'Ptaszkowska',
+        cover: '/images/Wiez.jpg',
     },
 ];
 

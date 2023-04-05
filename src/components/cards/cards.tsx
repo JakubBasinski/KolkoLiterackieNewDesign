@@ -1,11 +1,12 @@
 import styles from './cards.module.scss';
 import classNames from 'classnames';
-import { Card } from '../card/card';
-import { Movie } from '../card/card';
+import { Card } from '../card/Card';
+import { Movie } from '../card/Card';
 import { useContext } from 'react';
 import DisplayContext from '../../store/display-context';
 import { useEffect, useState } from 'react';
 import Comments from '../../comments/Comments';
+import { useRef } from 'react';
 
 export interface CardsProps {
     className?: string;
@@ -23,9 +24,10 @@ export const fakeMovies: Movie[] = [
 ];
 
 export const Cards = ({ className }: CardsProps) => {
+    const containerRef = useRef<HTMLDivElement>(null);
     const { fakeBooksData, searchQuery } = useContext(DisplayContext);
     const [fakeBooks, setFakeBooks] = useState(fakeBooksData);
-    const [selectedBookId, setSelected] = useState<number | null>(null);
+    const [selectedBookId, setSelected] = useState<number | null>(1);
     let selectedBook = fakeBooks.filter((books) => {
         return books.id === selectedBookId;
     })[0];
@@ -38,13 +40,19 @@ export const Cards = ({ className }: CardsProps) => {
         setFakeBooks(fakeBooksData);
     }, [fakeBooksData]);
 
+    const scrollToTop = () => {
+        if (containerRef.current) {
+            containerRef.current.scrollTop = 0;
+        }
+    };
+
     return (
-        <div className={classNames(styles.root, className)}>
+        <div className={classNames(styles.root, className)} ref={containerRef}>
             {selectedBookId === null &&
                 fakeBooks
-                    .filter((a) => a.title.toLowerCase().includes(searchQuery))
+                    .filter((a) => a.title.toLowerCase().includes(searchQuery.toLocaleLowerCase()))
                     .map((book, i) => (
-                        <Card book={book} key={book.id} handleSetSelected={handleSetSelected} />
+                        <Card scrollToTop={scrollToTop} book={book} key={book.id} handleSetSelected={handleSetSelected} />
                     ))}
 
             {selectedBook && (
@@ -71,7 +79,9 @@ export const Cards = ({ className }: CardsProps) => {
                             </div>
                             <div className={styles.subsection}>
                                 <p className={styles.text}>Rating [2 Votes]</p>
-                                <h4 className={styles.subTitle}>{selectedBook.vote_average} / 5 </h4>
+                                <h4 className={styles.subTitle}>
+                                    {selectedBook.vote_average} / 5{' '}
+                                </h4>
                             </div>
                             <div className={styles.subsection}>
                                 <p className={styles.text}>Meeting Details</p>
@@ -88,7 +98,6 @@ export const Cards = ({ className }: CardsProps) => {
                                 <h4 className={styles.subTitle}>Wojtek </h4>
                             </div>
                         </section>
-                        <section className={styles.bookActions}></section>
                     </div>
                 </section>
             )}

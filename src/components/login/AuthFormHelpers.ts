@@ -6,6 +6,9 @@ export const formSubmitionText = {
     letterSpacing: 2,
     fontSize: '1.6em',
     fontWeight: 600,
+    '@media (max-width: 1020px)': {
+        color: 'grey',
+    },
 };
 
 export const formInputs = {
@@ -13,18 +16,34 @@ export const formInputs = {
     '& .MuiFilledInput-input': {
         color: 'rgb(146, 144, 144);',
         fontSize: '1.1em',
+        '@media (max-width: 1020px)': {
+            color: 'grey',
+        },
     },
+
     '& .MuiFormLabel-root ': {
         color: '#806e59',
+        '@media (max-width: 1020px)': {
+            color: 'grey',
+        },
     },
     '& label.Mui-focused': {
         color: '#806e59',
+        '@media (max-width: 1020px)': {
+            color: 'grey',
+        },
     },
     '& .MuiFilledInput-underline:before': {
         borderBottomColor: '#806e59',
+        '@media (max-width: 1020px)': {
+            borderBottomColor: 'grey !important',
+        },
     },
     '& .MuiFilledInput-underline:after': {
         borderBottomColor: '#806e59',
+        '@media (max-width: 1020px)': {
+            borderBottomColor: 'grey !important',
+        },
     },
 };
 
@@ -44,6 +63,17 @@ export const submitButton = {
         color: 'black',
         transition: 'all 0.3s ease 0s',
         transform: 'translateY(-1px)',
+    },
+
+    '@media (max-width: 1020px)': {
+        borderColor: 'grey !important',
+        color: 'grey',
+        '&:hover': {
+            backgroundColor: 'black',
+            color: 'white !important',
+            transition: 'all 0.3s ease 0s',
+            transform: 'translateY(-1px)',
+        },
     },
 };
 
@@ -72,7 +102,6 @@ export const submitSchema = z
         path: ['confirmation'],
     });
 
-    
 export const loginSchema = z.object({
     email: z.string().min(1, { message: 'Enter email' }).email(),
     password: z.string().min(1, { message: 'Enter password' }),

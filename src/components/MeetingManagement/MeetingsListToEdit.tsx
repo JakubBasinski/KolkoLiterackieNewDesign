@@ -1,9 +1,7 @@
 import React from 'react';
 import { useContext } from 'react';
 import DisplayContext from '../../store/display-context';
-import classNames from 'classnames';
 import styles from './meetingManagement.module.scss';
-import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import dayjs from 'dayjs';
@@ -47,9 +45,6 @@ export const MeetingsListToEdit = ({
                             sx={{ marginLeft: 'auto' }}
                         />
                         <DeleteOutlineOutlinedIcon />
-                        {/* <KeyboardDoubleArrowRightIcon
-                            sx={{ fontSize: '20px', color: ' rgb(144, 136, 127);' }}
-                        /> */}
                     </li>
                 ))}
             </ul>

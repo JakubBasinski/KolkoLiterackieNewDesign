@@ -1,19 +1,27 @@
 .root {
   display: flex;
-  align-items: start;
+  align-items: flex-start ;
   flex-wrap: wrap;
   flex-direction: row;
   width: 90%;
-  padding: 20px;
-  gap: 40px;
   justify-content: center;
   overflow-x: hidden;
+  padding-top: 15px;
+  gap: 30px;
+
+  @media screen and (max-width: 1020px) {
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    flex-wrap: nowrap;
+    justify-content: flex-start ;
+    align-items: center;
+    width: 90%;
+  }
 }
 
 .xContainer {
-  width: 90%;
   display: flex;
-  margin: 0 auto;
 }
 .x {
   color: grey;
@@ -34,7 +42,6 @@
 }
 
 .singleCardView {
-  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -42,16 +49,18 @@
 }
 
 .singleCardContainer {
-  height: 500px;
   margin: auto;
   margin-top: 0;
   border: solid 1px hsla(0, 0%, 83%, 0.5);
   background-color: hsla(0, 0%, 83%, 0.05);
-  width: 80%;
+  width: 100%;
   display: flex;
   align-items: center;
   border-radius: 5px;
   overflow: hidden;
+  @media screen and (max-width: 1020px) {
+    height: auto;
+  }
 }
 
 .bookImage {
@@ -59,18 +68,27 @@
   display: flex;
   padding: 40px;
   justify-content: center;
-  height: 420px;
+  height: 350px;
   border-right: solid 1px hsla(0, 0%, 83%, 0.5);
+  @media screen and (max-width: 1020px) {
+    border: 0;
+    padding: 0 0 0 40px;
+    height: 250px;
+  }
 }
 
 .bookDetails {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: center;
   gap: 20px;
   height: 420px;
-  flex: 4 0;
+  flex: 4 1;
   padding-left: 40px;
+
+  @media screen and (max-width: 1020px) {
+  }
 }
 
 .text {
@@ -78,24 +96,15 @@
   font-family: 'Artifex CF';
 }
 
-.bookActions {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  height: 80%;
-  flex: 1 0;
-  padding-top: 80px;
-  padding-left: 40px;
-}
-
 .subsection {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start ;
   margin: 0;
   padding: 0;
   gap: 5px;
+  @media screen and (max-width: 1020px) {
+  }
 }
 
 .subsection p,
@@ -106,10 +115,16 @@ h4 {
   padding: 0;
 }
 
-.title{
+.title {
   font-size: 30px;
+  @media screen and (max-width: 1020px) {
+    font-size: 20px;
+  }
 }
 
-.subTitle{
+.subTitle {
   font-size: 20px;
+  @media screen and (max-width: 1020px) {
+    font-size: 20px;
+  }
 }

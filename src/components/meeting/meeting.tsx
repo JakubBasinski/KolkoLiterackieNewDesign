@@ -1,8 +1,6 @@
 import React from 'react';
 import styles from './meeting.module.scss';
-import { fakeMeetings } from '../../utils/fakeapi';
 import { ImageSlider } from './imageslider/ImageSlider';
-import { MeetingInterface } from '../../utils/fakeapi';
 
 export interface MeetingProps {
     meeting: {
@@ -16,6 +14,8 @@ export interface MeetingProps {
 }
 
 export const Meeting = ({ meeting }: MeetingProps) => {
+    console.log(meeting);
+
     return (
         <div className={styles.meetingCard}>
             <section className={styles.leftSection}>
@@ -35,7 +35,7 @@ export const Meeting = ({ meeting }: MeetingProps) => {
                     </div>
                     <div className={styles.subsection}>
                         <p className={styles.text}>Date</p>
-                        {/* <h4 className={styles.subTitle}> {meeting.date} </h4> */}
+                        <h4 className={styles.subTitle}> {meeting.date} </h4>
                     </div>
 
                     <div className={styles.subsection}>

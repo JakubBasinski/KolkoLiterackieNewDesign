@@ -1,9 +1,8 @@
 import styles from './gallery.module.scss';
-import classNames from 'classnames';
-import React, { useContext, useState, useEffect, useCallback } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import DisplayContext from '../../store/display-context';
 import styled, { keyframes } from 'styled-components';
-import { Selected } from './Selected';
+import { MediaButton } from '../common/MediaButton';
 
 const RTL = keyframes`
      0% {
@@ -76,7 +75,6 @@ const ImageWrapperDivLTR = styled.div<{ delay: number; duration: number }>`
     opacity: 0;
     transform: translateX(-100%);
     &:hover {
-   
         animation-play-state: paused;
         z-index: 100;
         opacity: 1 !important;
@@ -88,18 +86,16 @@ const ImageWrapperDivRTL = styled.div<{ delay: number; duration: number }>`
     position: absolute;
     transition: all 1s ease-in-out;
     height: 230px;
-    flex-wrap: wrap; /* Allow text to wrap onto multiple lines */
+    flex-wrap: wrap; 
     word-wrap: break-word;
     overflow-wrap: break-word;
-    animation: ${RTL} ${(props) => props.duration}s ease-in-out  infinite;
+    animation: ${RTL} ${(props) => props.duration}s ease-in-out infinite;
     animation-delay: ${(props) => props.delay}s;
     opacity: 0;
     &:hover {
-
         animation-play-state: paused;
         z-index: 100;
         opacity: 1 !important;
-
     }
 `;
 
@@ -125,11 +121,11 @@ const AfterElementWrapper = styled.div<{ place: string | undefined; date: string
             background-color: transparent;
             padding-bottom: 5%;
             transform: translate(-50%, -50%);
-
             color: #e6e6e6;
         }
         ::before {
             content: '${(props) => props.place}';
+            z-index: 1;
             width: 100%;
             position: absolute;
             top: 0%;
@@ -142,10 +138,17 @@ const AfterElementWrapper = styled.div<{ place: string | undefined; date: string
 
 const ImageLTR = styled.img`
     height: 230px;
+    @media (max-width: 1020px) {
+    filter: grayscale();
+  }
+
 `;
 
 const ImageRTL = styled.img`
     height: 230px;
+    @media (max-width: 1020px) {
+    filter: grayscale();
+  }
 `;
 
 interface MeetingMenuProps {
@@ -156,11 +159,11 @@ export const Gallery = React.memo(({ className }: MeetingMenuProps) => {
     const displayContext = useContext(DisplayContext);
     const { fakeMeetingsData } = displayContext;
     const [galleryData, setGalleryData] = useState([]);
-    let galleryDataPict: any = [];
-
+    
     console.log(galleryData);
-
+    
     useEffect(() => {
+        let galleryDataPict: any = [];
         fakeMeetingsData.map((galleryData) => {
             return galleryData.gallery.forEach((galleryItem) => {
                 galleryDataPict.push({ photo: galleryItem, prentId: galleryData.id });
@@ -168,7 +171,7 @@ export const Gallery = React.memo(({ className }: MeetingMenuProps) => {
         });
 
         setGalleryData(galleryDataPict);
-    }, []);
+    }, [fakeMeetingsData]);
 
     return (
         <div className={styles.root}>
@@ -178,7 +181,6 @@ export const Gallery = React.memo(({ className }: MeetingMenuProps) => {
                         <ImageWrapperDivLTR
                             key={index}
                             style={{
-                                // transform: 'translateY(-100%)',
                                 top:
                                     Math.floor(Math.random() * 2) > 0
                                         ? Math.random() * 250
@@ -199,7 +201,6 @@ export const Gallery = React.memo(({ className }: MeetingMenuProps) => {
                         <ImageWrapperDivRTL
                             key={index}
                             style={{
-                                // transform: 'translateY(-100%)',
                                 top:
                                     Math.floor(Math.random() * 2) > 0
                                         ? Math.random() * 250
@@ -218,40 +219,9 @@ export const Gallery = React.memo(({ className }: MeetingMenuProps) => {
                         </ImageWrapperDivRTL>
                     )
                 )}
-                {/* {galleryData.map((item: any, index: number) =>
-                    index % 2 !== 0 ? (
-                        <ImageLTR
-                            style={{
-                                // transform: 'translateY(-100%)',
-                                top:
-                                    Math.floor(Math.random() * 2) > 0
-                                        ? Math.random() * 250
-                                        : -Math.random() * 450,
-                                left: 0,
-                            }}
-                            src={item}
-                            alt={item.alt}
-                            delay={index - 1}
-                            duration={90 - Math.floor(Math.random() * 20)}
-                        />
-                    ) : (
-                        <ImageRTL
-                            style={{
-                                // transform: 'translateY(-100%)',
-                                top:
-                                    Math.floor(Math.random() * 2) > 0
-                                        ? Math.random() * 250
-                                        : -Math.random() * 450,
-                                right: 0,
-                            }}
-                            src={item}
-                            alt={item.alt}
-                            delay={index - 1}
-                            duration={90 - Math.floor(Math.random() * 20)}
-                        />
-                    )
-                )} */}
+
             </div>
+            <MediaButton />
         </div>
     );
 });

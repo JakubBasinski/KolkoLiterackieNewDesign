@@ -17,7 +17,13 @@ interface DisplayCotnextType {
     editMeetingData: (meeting: MeetingInterface, updatedMeeting: MeetingInterface) => void;
     isWelcomePage: boolean;
     setWelcomePage: (value: boolean) => void;
- 
+    meetingModeForm: string;
+    setMeetingModeForm: (value: string) => void;
+    snackbarMessage: string;
+    setSnackbarMessage: (value: string) => void;
+    isSnackBarOpen: boolean;
+    setSnackBarOpen: (value: boolean) => void;
+
 }
 
 const DisplayContext = React.createContext<DisplayCotnextType>({
@@ -33,6 +39,12 @@ const DisplayContext = React.createContext<DisplayCotnextType>({
     editMeetingData: (meeting: MeetingInterface, updatedMeeting: MeetingInterface) => {},
     isWelcomePage: true,
     setWelcomePage: (value: boolean) => {},
+    meetingModeForm: '',
+    setMeetingModeForm: (value: string) => {},
+    snackbarMessage: '',
+    setSnackbarMessage: (value: string) => {},
+    isSnackBarOpen: false,
+    setSnackBarOpen: (value: boolean) => {},
 
 });
 
@@ -46,10 +58,17 @@ export const DisplayContextProvider = ({ children }: Props) => {
     const [isBookPage, setIsBookPage] = useState(false);
     const [query, setQuery] = useState('');
     const [fakeHisotryList, setFakeHistory] = useState(fakeMeetings);
+    const [modeForm, setModeForm] = useState('add');
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [isSnackBarOpen, setSnackBarOpen] = useState(false);
+    const [token, setToken] = useState('');
     const handleSetQuery = (e: string) => {
         setQuery(e);
-    };
+    };    
 
+    const handleSetForm = (e: string) => {
+        setModeForm(e);
+    };
 
     const addingMeeting = (meeting: MeetingInterface) => {
         console.log('addM<eetingCtX works');
@@ -62,7 +81,6 @@ export const DisplayContextProvider = ({ children }: Props) => {
         newList[index] = updatedMeeting;
         console.log(newList);
         setFakeHistory(newList);
-        console.log('edited!');
     };
 
     const editHistory = (action: any) => {
@@ -99,7 +117,7 @@ export const DisplayContextProvider = ({ children }: Props) => {
                 newList.sort((a, b) => (a.title > b.title ? 1 : -1));
                 setFakeBooks(newList);
                 break;
-            case 'Reviewing Date':
+            case 'Meeting Date':
                 newList.sort((a, b) => {
                     const dateA = new Date(a.release_date);
                     const dateB = new Date(b.release_date);
@@ -107,11 +125,7 @@ export const DisplayContextProvider = ({ children }: Props) => {
                 });
                 setFakeBooks(newList);
                 break;
-            default:
-                console.log('what?');
         }
-
-        console.log(fakeBookList);
     };
     const isBookHandler = () => {
         setIsBookPage((p) => !p);
@@ -120,8 +134,6 @@ export const DisplayContextProvider = ({ children }: Props) => {
     const welcomeGuestHandler = (value: boolean) => {
         setWelcomeGuest(value);
     };
-
-   
 
     const contextValue = {
         fakeBooksData: fakeBookList,
@@ -136,7 +148,13 @@ export const DisplayContextProvider = ({ children }: Props) => {
         editMeetingData: editMeeting,
         isWelcomePage: welcomeGuest,
         setWelcomePage: welcomeGuestHandler,
-    
+        meetingModeForm:  modeForm,
+        setMeetingModeForm: handleSetForm,
+        snackbarMessage: snackbarMessage,
+        setSnackbarMessage: setSnackbarMessage,
+        isSnackBarOpen: isSnackBarOpen,
+        setSnackBarOpen: setSnackBarOpen,
+   
     };
 
     return <DisplayContext.Provider value={contextValue}>{children}</DisplayContext.Provider>;

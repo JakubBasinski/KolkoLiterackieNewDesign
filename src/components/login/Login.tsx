@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import styles from './login.module.scss';
-import { Button, TextField, Typography, Snackbar, IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { Button, TextField, Typography } from '@mui/material';
 import * as cls from './AuthFormHelpers';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { string as zstring } from 'zod';
 import { loginSchema, submitSchema, initialValues } from './AuthFormHelpers';
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import AuthorizationContext from '../../store/authorization-contex';
+import DisplayContext from '../../store/display-context';
 
 export const errorsFieldValues = {
     confirmationError: false,
@@ -18,45 +20,44 @@ export interface MenuProps {
 }
 
 export const Login = ({ className }: MenuProps) => {
+    const { login } = useContext(AuthorizationContext);
+    const { setSnackbarMessage, setSnackBarOpen } = useContext(DisplayContext);
+
     const [isLogin, setIsLogin] = useState(true);
     const schema = isLogin ? loginSchema : submitSchema;
+    const navigate = useNavigate();
+
     const { register, handleSubmit, formState } = useForm({
         defaultValues: initialValues,
         resolver: zodResolver(schema),
     });
 
     const { errors } = formState;
-    const [serverMsg, setServerMsg] = useState('Test Message');
 
     const switchAuthModeHandler = () => {
         setIsLogin((prevState) => !prevState);
     };
 
-    const [open, setOpen] = useState(false);
-    const handleClose = (reason: any) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setOpen(false);
-    };
-
-    const action = (
-        <div>
-            <IconButton
-                size="small"
-                aria-label="close"
-                color="inherit"
-                onClick={handleClose}
-                type="button"
-            >
-                <CloseIcon fontSize="small" />
-            </IconButton>
-        </div>
-    );
-
     const submitHandler = async (formValues: any) => {
-        console.log(formValues);
-        setOpen(true);
+        if (isLogin === true) {
+            setSnackbarMessage('Successfully logged in !');
+            setSnackBarOpen(true);
+            localStorage.setItem('user', formValues.password);
+            let fakeToken = 'fakeToken';
+            let fakeUser = 'fakeUser';
+            let isAdminFake = false;
+            const expirationDuration = 3600;
+            const currentTime = Math.floor(Date.now() / 1000);
+            const expirationTime = currentTime + expirationDuration;
+            localStorage.clear();
+            login(fakeToken, fakeUser, expirationTime, isAdminFake);
+
+            navigate('/');
+        } else {
+            setSnackBarOpen(true);
+            setSnackbarMessage('Successfully registered !');
+            setIsLogin(true);
+        }
     };
 
     return (
@@ -126,18 +127,6 @@ export const Login = ({ className }: MenuProps) => {
                     </Button>
                 </div>
             </form>
-
-            <Snackbar
-                open={open}
-                autoHideDuration={4000}
-                onClose={handleClose}
-                message={serverMsg}
-                action={action}
-                anchorOrigin={{
-                    horizontal: 'center',
-                    vertical: 'bottom',
-                }}
-            />
         </motion.div>
     );
 };

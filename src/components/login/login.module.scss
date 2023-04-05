@@ -1,13 +1,18 @@
 .root {
   padding: 50px;
   display: flex;
+  height: 100vh;
   width: 100%;
   align-items: center;
-  justify-items: start;
+  justify-items: flex-start ;
   flex-direction: column;
   gap: 40px;
   background-color: rgba(0, 0, 0, 0.85);
   overflow: scroll;
+
+
+
+
 }
 
 .error {
@@ -25,6 +30,10 @@
   padding: 50px;
   border-radius: 10px;
   background-color: rgba(38, 29, 27, 0.661);
+
+  @media screen and (max-width: 1020px) {
+    background-color: rgba(0, 0, 0, 0.661);
+  }
 }
 
 .productsList {
@@ -33,7 +42,7 @@
   overflow: hidden;
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start ;
   flex-direction: column;
   width: 500px;
   box-shadow: 0 0 1.5em 0 inset rgba(2, 2, 11, 1), 0 0 0.5em 0 rgba(2, 2, 11, 1);

@@ -1,12 +1,10 @@
-import classNames from 'classnames';
-import styles from './meetingManagement.module.scss';
 import React from 'react';
+import styles from './meetingManagement.module.scss';
+import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { TextField } from '@mui/material';
-import * as cls from './MeetingManagmentHelpers';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { Box } from '@mui/material';
@@ -16,46 +14,31 @@ import { useContext, useState } from 'react';
 import DisplayContext from '../../store/display-context';
 import { MeetingInterface } from '../../utils/fakeapi';
 import { MeetingsListToEdit } from './MeetingsListToEdit';
-import { useParams } from 'react-router-dom';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
+import { MediaButton } from '../common/MediaButton';
+import RepeatIcon from '@mui/icons-material/Repeat';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import * as cls from './MeetingManagmentHelpers';
 
-const multiSelectOptions = [
-    { name: 'Wojtek' },
-    { name: 'Kuba' },
-    { name: 'Mikolaj' },
-    { name: 'Daniel' },
-];
-
-const meetingSchema = z.object({
-    title: z.string().min(1, { message: 'Enter the title' }),
-    place: z.string().min(1, { message: 'Enter the place' }),
-    date: z.any().optional(),
-    cover: z.string().min(1, { message: 'Provide a cover' }),
-    gallery: z.array(z.string()).max(4, { message: '4 photos maximum' }),
-    recommender: z.string().optional(),
-    multiSelect: z.array(z.string()).optional(),
-});
-
+import { multiSelectOptions, meetingSchema, initialValues } from './MeetingManagmentHelpers';
 export interface MeetingMProps {
     className?: string;
 }
 
 export const MeetingManagement = ({ className }: MeetingMProps) => {
-    const { addingMeetingData, fakeMeetingsData, editMeetingData } = useContext(DisplayContext);
     const [selectedMeetingId, setSelected] = useState<number | null>(null);
-    const { action } = useParams();
 
-    const initialValues = {
-        title: '',
-        cover: '',
-        date: null,
-        place: '',
-        recommender: '',
-        multiSelect: [],
-        gallery: [] as string[],
-    };
+    const {
+        setSnackBarOpen,
+        setSnackbarMessage,
+        meetingModeForm,
+        setMeetingModeForm,
+        addingMeetingData,
+        fakeMeetingsData,
+        editMeetingData,
+    } = useContext(DisplayContext);
 
     const {
         register,
@@ -144,12 +127,19 @@ export const MeetingManagement = ({ className }: MeetingMProps) => {
     };
 
     const submitHandler = async (data: any) => {
-        if (action === 'edit' && selectedMeetingId) {
+        let reformateDate = data.date.toDate();
+        let convertedData = `${reformateDate.getDate()}/${
+            reformateDate.getMonth() + 1
+        }/${reformateDate.getFullYear()}`;
+
+        console.log(convertedData);
+
+        if (meetingModeForm === 'edit' && selectedMeetingId) {
             const updatedMeeting: MeetingInterface = {
                 id: selectedMeetingId,
                 gallery: data.gallery || [],
                 book: data.title,
-                date: data.date || '',
+                date: convertedData || '',
                 literats: data.multiselect || [],
                 place: data.place || '',
                 cover: data.cover || '',
@@ -158,6 +148,9 @@ export const MeetingManagement = ({ className }: MeetingMProps) => {
             if (selectedMeeting) {
                 editMeetingData(selectedMeeting, updatedMeeting);
             }
+            setSelected(null);
+            setSnackBarOpen(true);
+            setSnackbarMessage('Meeting updated successfully');
             return;
         }
 
@@ -165,13 +158,16 @@ export const MeetingManagement = ({ className }: MeetingMProps) => {
             id: Math.floor(Math.random() * 1001),
             gallery: data.gallery || [],
             book: data.title,
-            date: data.date || '',
+            date: convertedData || '',
             literats: data.multiselect || [],
             place: data.place || '',
             cover: data.cover || '',
         };
-        console.log('nonono');
+
         addingMeetingData(newMeeting);
+        setSnackbarMessage('Meeting added successfully');
+        setSnackBarOpen(true);
+        reset();
     };
 
     return (
@@ -181,29 +177,38 @@ export const MeetingManagement = ({ className }: MeetingMProps) => {
             animate={{ x: 0, opacity: 1, transition: { delay: 1, duration: 0.5 }, display: 'flex' }}
             exit={{ x: window.innerWidth, opacity: 0, transition: { duration: 0.5 } }}
         >
-            {/* <div className={styles.container}>
-                <div className={styles.photoWrapper}>
-                    <img
-                        src="/images/gallery/1.png"
-                        alt=" 1"
-                        id="photo-left"
-                        className={styles.photo}
-                    />
-                </div>
-            </div> */}
+            <div
+                onClick={() => {
+                    // eslint-disable-next-line no-lone-blocks
+                    {
+                        meetingModeForm === 'edit'
+                            ? setMeetingModeForm('add')
+                            : setMeetingModeForm('edit');
+                    }
+                }}
+                className={styles.editForMEdia}
+            >
+                <h4>{meetingModeForm.toUpperCase()}</h4>
+                <RepeatIcon />
+            </div>
 
-            {action === 'edit' && (
+            {meetingModeForm === 'edit' && selectedMeetingId === null && (
                 <MeetingsListToEdit selectMeetingHandler={hadnleSelectMeeting} resetForm={reset} />
             )}
-
-            {action === 'edit' && selectedMeetingId === null && (
-                <h1>Select a meeting to start editing</h1>
-            )}
-
-            {action === 'add' || (action === 'edit' && selectedMeetingId !== null) ? (
+            {meetingModeForm === 'add' ||
+            (meetingModeForm === 'edit' && selectedMeetingId !== null) ? (
                 <form onSubmit={handleSubmit(submitHandler)} className={styles.form}>
                     <div className={styles.meetingForm}>
-                        <h2 className={styles.formTitle}>Book details</h2>
+                        {selectedMeetingId !== null && (
+                            <KeyboardBackspaceIcon
+                                onClick={() => {
+                                    setSelected(null);
+                                }}
+                                sx={cls.Keyboard}
+                            />
+                        )}
+
+                        <h2 className={styles.formTitle}>Meeting details</h2>
 
                         <div className={styles.maincontainer}>
                             <div className={styles.up}>
@@ -220,18 +225,7 @@ export const MeetingManagement = ({ className }: MeetingMProps) => {
                                             />
                                         </div>
                                     ) : (
-                                        <Box
-                                            sx={{
-                                                height: '200px',
-                                                width: '200px',
-                                                borderRadius: '10px',
-                                                color: ' rgb(144, 136, 127)',
-                                                border: 'dashed 2px rgb(144, 136, 127) ',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                            }}
-                                        >
+                                        <Box sx={cls.ImageLandingSpace}>
                                             <p className={styles.textImages}>COVER</p>
                                         </Box>
                                     )}
@@ -268,18 +262,7 @@ export const MeetingManagement = ({ className }: MeetingMProps) => {
                                             ))}
                                         </div>
                                     ) : (
-                                        <Box
-                                            sx={{
-                                                height: '200px',
-                                                width: '200px',
-                                                borderRadius: '10px',
-                                                color: ' rgb(144, 136, 127)',
-                                                border: 'dashed 2px rgb(144, 136, 127) ',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                            }}
-                                        >
+                                        <Box sx={cls.ImageLandingSpace}>
                                             <p className={styles.textImages}>ADD PHOTOS</p>
                                         </Box>
                                     )}
@@ -342,54 +325,9 @@ export const MeetingManagement = ({ className }: MeetingMProps) => {
                                                     onError={() => (
                                                         <div>Please select a valid date</div>
                                                     )}
-                                                    slotProps={{
-                                                        desktopPaper: {
-                                                            sx: {
-                                                                background: ' rgb(144, 136, 127)',
-                                                            },
-                                                        },
-
-                                                        day: {
-                                                            sx: {
-                                                                '&.Mui-selected': {
-                                                                    backgroundColor:
-                                                                        'rgb(126, 98, 66)',
-                                                                    color: 'white',
-                                                                    '&:focus': {
-                                                                        backgroundColor:
-                                                                            'rgb(126, 98, 66)',
-                                                                        color: 'white',
-                                                                    },
-                                                                },
-                                                            },
-                                                        },
-                                                    }}
+                                                    slotProps={cls.dateSlotProps}
                                                     showDaysOutsideCurrentMonth
-                                                    sx={{
-                                                        width: '100%',
-                                                        '& .MuiInputBase-input ': {
-                                                            backgroundColor: 'transparent',
-                                                            color: '#806e59',
-                                                            border: 'solid 1px #806e59',
-                                                        },
-
-                                                        '& .MuiPickersPopper-root': {
-                                                            backgroundColor:
-                                                                'rgba(120, 120, 120, 0.2)',
-                                                        },
-
-                                                        '& .MuiOutlinedInput-root': {
-                                                            '& fieldset': {
-                                                                borderColor: '#806e59',
-                                                            },
-                                                            '&:hover fieldset': {
-                                                                borderColor: '#806e59',
-                                                            },
-                                                            '&.Mui-focused fieldset': {
-                                                                borderColor: '#806e59',
-                                                            },
-                                                        },
-                                                    }}
+                                                    sx={cls.datePicker}
                                                     onChange={(date) => {
                                                         try {
                                                             restField.onChange(dayjs(date));
@@ -419,13 +357,7 @@ export const MeetingManagement = ({ className }: MeetingMProps) => {
                                         defaultValue={[]}
                                         render={({ field }) => (
                                             <Select
-                                                MenuProps={{
-                                                    PaperProps: {
-                                                        sx: {
-                                                            backgroundColor: ' #191312',
-                                                        },
-                                                    },
-                                                }}
+                                                MenuProps={cls.selectMenuProps}
                                                 sx={cls.multiSelect}
                                                 labelId="multi-select-label"
                                                 multiple
@@ -466,13 +398,7 @@ export const MeetingManagement = ({ className }: MeetingMProps) => {
                                                 {multiSelectOptions.map((option, i) => (
                                                     <MenuItem
                                                         key={i}
-                                                        sx={{
-                                                            color: 'rgb(126, 98, 66)',
-                                                            backgroundColor: 'transparent',
-                                                            '&. Mui-selected': {
-                                                                color: 'rgb(126, 98, 66)',
-                                                            },
-                                                        }}
+                                                        sx={cls.menuItem}
                                                         value={option.name}
                                                     >
                                                         {option.name}
@@ -484,18 +410,13 @@ export const MeetingManagement = ({ className }: MeetingMProps) => {
                                     <button className={styles.submitButton}>
                                         <div className={styles.addWrapper}>
                                             <p className={styles.textAdd}>
-                                                {action?.toLocaleUpperCase()}
+                                                {meetingModeForm?.toLocaleUpperCase()}
                                             </p>
                                             <p className={styles.textThe}>THE </p>
                                             <p className={styles.textMeeting}>MEETING</p>
                                         </div>
                                         <div>
-                                            <KeyboardDoubleArrowRightIcon
-                                                sx={{
-                                                    fontSize: '70px',
-                                                    color: ' rgb(144, 136, 127);',
-                                                }}
-                                            />
+                                            <KeyboardDoubleArrowRightIcon sx={cls.doubleArrow} />
                                         </div>
                                     </button>
                                 </div>
@@ -504,6 +425,7 @@ export const MeetingManagement = ({ className }: MeetingMProps) => {
                     </div>
                 </form>
             ) : null}
+            <MediaButton />
         </motion.div>
     );
 };

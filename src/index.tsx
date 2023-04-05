@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { DisplayContextProvider } from './store/display-context';
+import { AuthorizationProvider } from './store/authorization-contex';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
@@ -13,9 +14,11 @@ root.render(
     <React.StrictMode>
         <BrowserRouter>
             <DisplayContextProvider>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <App />
-                </LocalizationProvider>
+                <AuthorizationProvider>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <App />
+                    </LocalizationProvider>
+                </AuthorizationProvider>
             </DisplayContextProvider>
         </BrowserRouter>
     </React.StrictMode>

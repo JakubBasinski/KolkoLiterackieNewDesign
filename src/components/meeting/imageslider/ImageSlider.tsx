@@ -1,5 +1,4 @@
 import React, { CSSProperties } from 'react';
-import styles from './imageSlider.module.css';
 import { useState } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import CircleIcon from '@mui/icons-material/Circle';

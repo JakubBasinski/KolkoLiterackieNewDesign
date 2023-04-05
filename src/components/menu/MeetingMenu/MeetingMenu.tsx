@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from './meetingMenu.module.scss';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
+import DisplayContext from '../../../store/display-context';
 
 interface MeetingMenuProps {
     className?: string;
     classes: string | null;
 }
 
-const adminOptions = ['Add meeting', 'Edit meetings'];
+const adminOptions = ['Add meeting', 'Edit meeting'];
 
 export const MeetingMenu = ({ className, classes }: MeetingMenuProps) => {
+    const {setMeetingModeForm } = useContext(DisplayContext);
+
+
     return (
         <div className={classNames(styles.root, className)}>
             <ul className={styles.list}>
@@ -20,11 +24,11 @@ export const MeetingMenu = ({ className, classes }: MeetingMenuProps) => {
                             classes === 'meetingClass' ? styles.listItem : styles.listItemOut
                         }
                         key={i}
-                        onClick={() => {}}
+                        onClick={() => {
+                            setMeetingModeForm(adminOptions[i].split(' ')[0].toLocaleLowerCase());
+                        }}
                     >
-                        <Link to={`/meetings/${item.split(' ')[0].toLocaleLowerCase()}`}>
-                            {item}
-                        </Link>
+                        {item}
                     </li>
                 ))}
             </ul>

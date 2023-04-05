@@ -1,7 +1,5 @@
 import React from 'react';
 import { CSSProperties } from 'react';
-import { useContext } from 'react';
-import DisplayContext from '../../store/display-context';
 import styles from './welcomePage.module.scss';
 
 const welcomeText = 'Enjoy peaceful moments with literature.';
@@ -13,7 +11,6 @@ const createStyles = (index: number, word: string): CSSProperties => {
 };
 
 export const WelcomePage = () => {
-    const { isWelcomePage, setWelcomePage } = useContext(DisplayContext);
 
     return (
         <div className={styles.wrapper}>

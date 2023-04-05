@@ -1,3 +1,7 @@
+:root {
+  --breakingPoint: 1020px;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans ','Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',

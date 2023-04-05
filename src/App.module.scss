@@ -3,17 +3,18 @@
   width: 100vw;
   color: #f2f2f2;
   display: flex;
-  background: url('../public/Book1.jpg');
+  background: url('../public/images/background/Book.jpg');
   background-color: #080605;
   background-repeat: no-repeat;
   background-position: top center;
   background-size: cover;
   height: 100vh;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1020px) {
     flex-direction: column;
-    background: url('../public/ninja.jpg');
+    background: url('../public/images/background/Ninja.jpg');
     background-position: center 40%;
+    background-repeat:repeat-y
   }
 }
 

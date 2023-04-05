@@ -1,6 +1,6 @@
 import styles from './search.module.scss';
 import classNames from 'classnames';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import DisplayContext from '../../store/display-context';
 
 export interface SearchProps {

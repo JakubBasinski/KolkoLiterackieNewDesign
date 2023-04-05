@@ -6,6 +6,9 @@
   gap: 5px;
   margin-top: 10px;
   position: relative;
+  @media (max-width: 1020px) {
+    display: none;
+  }
 }
 
 .bookText {

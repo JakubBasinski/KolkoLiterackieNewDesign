@@ -1,0 +1,13 @@
+.mediaNavButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-decoration: none;
+    color: white;
+    font-size: 30px;
+    padding: 10px 20px;
+    display: none;
+    @media screen and (max-width: 1020px) {
+      display: block;
+    }
+  }

@@ -5,11 +5,11 @@ import {
     createComment as createCommentApi,
     deleteComment as deleteCommentApi,
     updateComment as updateCommentApi,
-} from '../utils/helpers';
+} from './helpers';
 import Comment from './Comment';
 import style from './Comment.module.scss';
 import CommentForm from './CommentForm';
-import { SingleComment } from '../utils/helpers';
+import { SingleComment } from './helpers';
 
 interface Props {
     currentUserId: string;

@@ -6,6 +6,10 @@
   gap: 5px;
   margin-top: 10px;
   position: relative;
+
+  @media (max-width: 1020px) {
+    display: none;
+  }
 }
 
 .bookText {
@@ -22,8 +26,6 @@
   padding: 0px;
   gap: 20px;
 }
-
-
 
 @mixin title-style($animationType) {
   color: #777;
@@ -102,19 +104,19 @@
 }
 
 // @mixin sortByLine-style($animationType, $opacity) {
-  //   opacity: $opacity;
-  //   width: 80%;
-  //   color: rgb(78, 70, 60);
-  //   animation: $animationType 0.5s forwards ease-in-out;
-  //   animation-delay: 0.1s;
-  //   margin: auto;
-  //   margin-top: 5px;
-  // }
-  
-  // .sortByLine {
-  //   @include sortByLine-style(drop-in, 0);
-  // }
-  
-  // .sortByLineOut {
-  //   @include sortByLine-style(drop-out, 1);
-  // }
+//   opacity: $opacity;
+//   width: 80%;
+//   color: rgb(78, 70, 60);
+//   animation: $animationType 0.5s forwards ease-in-out;
+//   animation-delay: 0.1s;
+//   margin: auto;
+//   margin-top: 5px;
+// }
+
+// .sortByLine {
+//   @include sortByLine-style(drop-in, 0);
+// }
+
+// .sortByLineOut {
+//   @include sortByLine-style(drop-out, 1);
+// }

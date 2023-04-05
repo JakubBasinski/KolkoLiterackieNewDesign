@@ -1,13 +1,6 @@
-import { SingleComment } from '../utils/helpers';
+import { SingleComment } from './helpers';
 import cls from './Comment.module.scss';
 import CommentForm from './CommentForm';
-import {
-    getComments as getCommentsApi,
-    createComment as createCommentApi,
-    deleteComment as deleteCommentApi,
-} from '../utils/helpers';
-
-
 
 interface Props {
     comment: SingleComment;
@@ -29,10 +22,8 @@ const Comment = ({
     setActiveComment,
     addComment,
     parentId = null,
-    updateComment
+    updateComment,
 }: Props) => {
-    //@ts-ignore
-
     const fiveMinutes: number = 300000;
     const timePassed = new Date().getTime() - new Date(comment.createdAt).getTime() > fiveMinutes;
     const canReply = Boolean(currentUserId);
@@ -44,12 +35,6 @@ const Comment = ({
     const isEditing =
         activeComment && activeComment.type === 'editing' && activeComment.id === comment.id;
     const replyId = parentId ? parentId : comment.id;
-
-    // const addComment = (text: string, parentId: string | null) => {
-    //   console.log('addComment', parentId);
-    //   createCommentApi(text, parentId).then((comment) => {
-    //       setBackendComments([comment, ...backendComments]);
-    //   });
 
     return (
         <div className={cls.comment}>

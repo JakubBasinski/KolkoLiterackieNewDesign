@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import styles from './history.module.scss';
-import { Meeting } from '../meeting/meeting';
+import { Meeting } from '../meeting/Meeting';
 import { useContext } from 'react';
 import DisplayContext from '../../store/display-context';
+import { MediaButton } from '../common/MediaButton';
 
 export interface MenuProps {
     className?: string;
@@ -26,12 +27,12 @@ export const History = ({ className }: MenuProps) => {
             exit={{ x: window.innerWidth, opacity: 0, transition: { duration: 0.5 } }}
         >
             <h1 className={styles.meetingText}>Meeting history</h1>
-
             <section className={styles.meetingContainer}>
                 {fakeMeetings.map((meeting, i) => (
                     <Meeting key={i} meeting={meeting} />
                 ))}
             </section>
+            <MediaButton />   
         </motion.div>
     );
 };

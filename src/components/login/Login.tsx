@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import AuthorizationContext from '../../store/authorization-contex';
 import DisplayContext from '../../store/display-context';
+import { MediaButton } from '../common/MediaButton';
 
 export const errorsFieldValues = {
     confirmationError: false,
@@ -127,6 +128,7 @@ export const Login = ({ className }: MenuProps) => {
                     </Button>
                 </div>
             </form>
+            <MediaButton />
         </motion.div>
     );
 };

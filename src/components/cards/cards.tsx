@@ -81,7 +81,7 @@ export const Cards = ({ className }: CardsProps) => {
                             </div>
                             <div className={styles.subsection}>
                                 <p className={styles.text}>Literats</p>
-                                <h4 className={styles.subTitle}>Wojtek, Kuba, Daniel, Wambli</h4>
+                                <h4 className={styles.subTitle}>Wojtek, Kuba, Danieaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaal, Wambli</h4>
                             </div>
                             <div className={styles.subsection}>
                                 <p className={styles.text}>Recommender</p>

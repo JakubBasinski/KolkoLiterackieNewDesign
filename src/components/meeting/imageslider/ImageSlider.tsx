@@ -76,9 +76,11 @@ export const ImageSlider = ({ slides }: Props) => {
 
     return (
         <div style={sliderStyles}>
-            <div style={leftArrowStyles} onClick={goPrev}>
-                &lt;
-            </div>
+            {slides.length > 1 && (
+                <div style={leftArrowStyles} onClick={goPrev}>
+                    &lt;
+                </div>
+            )}
 
             <motion.div
                 drag="x"
@@ -100,15 +102,16 @@ export const ImageSlider = ({ slides }: Props) => {
                 }}
                 dragElastic={0}
                 onDrag={(event, info) => {
-         
                     x.set(2 * -info.offset.x);
                     y.set(4 * -info.offset.y);
                 }}
             ></motion.div>
+            {slides.length > 1  && (
+                <div style={rightArrowStyles} onClick={goNext}>
+                    &gt;
+                </div>
+            )}
 
-            <div style={rightArrowStyles} onClick={goNext}>
-                &gt;
-            </div>
             <div style={containerDots}>
                 {slides.map((slide, slideIndex) => (
                     <div

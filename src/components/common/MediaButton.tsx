@@ -9,9 +9,12 @@ export const MediaButton = (props: any) => {
             <CancelPresentationIcon
                 sx={{
                     fontSize: '45px',
-                    color: 'grey',
+                    color: '#E6E6E6',
                     '&:hover': {
                         color: 'white',
+                    },
+                    '@media screen and (max-width: 567px)': {
+                        fontSize: '30px',
                     },
                 }}
             />

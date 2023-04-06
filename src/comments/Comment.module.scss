@@ -8,6 +8,10 @@
   padding: 40px;
   background-color: hsla(0, 0%, 83%, 0.05);
   gap: 30px;
+  @media screen and (max-width: 576px) {
+    gap: 20px;
+    padding: 10px;
+  }
 }
 
 .commentsContainer {

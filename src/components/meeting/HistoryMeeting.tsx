@@ -13,7 +13,7 @@ export interface MeetingProps {
     };
 }
 
-export const Meeting = ({ meeting }: MeetingProps) => {
+export const HistoryMeeting = ({ meeting }: MeetingProps) => {
     console.log(meeting);
 
     return (

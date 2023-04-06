@@ -43,7 +43,7 @@ export const formInputs = {
         borderBottomColor: '#806e59',
         '@media (max-width: 1020px)': {
             borderBottomColor: 'grey !important',
-        },
+        }
     },
 };
 

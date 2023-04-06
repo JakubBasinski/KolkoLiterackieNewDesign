@@ -9,6 +9,10 @@
   background-color: rgba(0, 0, 0, 0.85);
   overflow: scroll;
   height: 100vh;
+  @media screen and (max-width: 576px) {
+    padding: 0px;
+  }
+
 }
 
 .root::-webkit-scrollbar {
@@ -22,10 +26,13 @@
   align-items: center;
   gap: 40px;
 
-
   @media screen and (max-width: 1020px) {
     width: 90%;
   }
+  @media screen and (max-width: 576px) {
+    width: 100%;
+  }
+
 }
 
 .meetingText {

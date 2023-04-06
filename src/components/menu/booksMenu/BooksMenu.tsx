@@ -10,7 +10,7 @@ export interface MenuProps {
 }
 
 export const BooksMenu = (({ className, classes }: MenuProps) => {
-    const displayCtx = useContext(DisplayContext);
+    const {sortMeetingData} = useContext(DisplayContext);
     return (
         <div className={classNames(styles.root, className)}>
             <span className={classes === 'booksClass' ? styles.title : styles.titleOut}>
@@ -22,7 +22,7 @@ export const BooksMenu = (({ className, classes }: MenuProps) => {
                         className={classes === 'booksClass' ? styles.listItem : styles.listItemOut}
                         key={i}
                         onClick={() => {
-                            displayCtx.editBooksData(item);
+                            sortMeetingData(item);
                     
                         }}
                     >

@@ -1,33 +1,38 @@
 import styles from './card.module.scss';
 import classNames from 'classnames';
-
-export interface Movie {
-    id: number;
-    poster_path: string;
-    title: string;
-    overview: string;
-    vote_average: number;
-    release_date: string;
-}
+import { MeetingInterface } from '../../utils/fakeapi';
 
 export interface CardProps {
     className?: string;
-    book: Movie;
+    meeting: MeetingInterface;
     handleSetSelected: (id: number) => void;
     scrollToTop: () => void;
 }
 
-export const Card = ({ scrollToTop, className, book, handleSetSelected }: CardProps) => {
+export const Card = ({ scrollToTop, className, meeting, handleSetSelected }: CardProps) => {
     return (
         <div
             onClick={() => {
-                handleSetSelected(book.id);
+                handleSetSelected(meeting.id);
                 scrollToTop();
             }}
             className={classNames(styles.root, className)}
         >
-            <img src={book.poster_path} alt={book.title} className={styles.cardImage} />
-            <div className={styles.cardDetails}></div>
+            <img src={meeting.cover} alt={meeting.book} className={styles.cardImage} />
+            <div className={styles.cardDetails}>
+                <p className={styles.cardTitle}>
+         
+                    {meeting.book}
+                </p>
+                <p className={styles.cardAuthor}>
+
+                    {meeting.date}
+                </p>
+                <p className={styles.cardAuthor}>
+                  
+                    {meeting.rating}
+                </p>
+            </div>
         </div>
     );
 };

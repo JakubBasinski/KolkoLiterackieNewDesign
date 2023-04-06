@@ -117,11 +117,15 @@ const AfterElementWrapper = styled.div<{ place: string | undefined; date: string
             width: 100%;
             position: absolute;
             bottom: 0;
+            font-size: 20px;
+            font-weight:600;
+            text-shadow: 2px 2px 2px black;
             left: 50%;
             background-color: transparent;
             padding-bottom: 5%;
             transform: translate(-50%, -50%);
-            color: #e6e6e6;
+            color: #ffffff;
+           
         }
         ::before {
             content: '${(props) => props.place}';
@@ -132,6 +136,10 @@ const AfterElementWrapper = styled.div<{ place: string | undefined; date: string
             left: 50%;
             transform: translateX(-50%);
             padding-top: 5%;
+            font-size: 20px;
+            font-weight:600;
+            text-shadow: 2px 2px 2px black;
+       
         }
     }
 `;

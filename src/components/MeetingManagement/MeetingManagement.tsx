@@ -12,7 +12,6 @@ import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArro
 import { DesktopDatePicker } from '@mui/x-date-pickers/';
 import { useContext, useState } from 'react';
 import DisplayContext from '../../store/display-context';
-import { MeetingInterface } from '../../utils/fakeapi';
 import { MeetingsListToEdit } from './MeetingsListToEdit';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -21,6 +20,7 @@ import { MediaButton } from '../common/MediaButton';
 import RepeatIcon from '@mui/icons-material/Repeat';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import * as cls from './MeetingManagmentHelpers';
+import { MeetingInterface } from '../../utils/fakeapi';
 
 import { multiSelectOptions, meetingSchema, initialValues } from './MeetingManagmentHelpers';
 export interface MeetingMProps {
@@ -193,7 +193,7 @@ export const MeetingManagement = ({ className }: MeetingMProps) => {
             </div>
 
             {meetingModeForm === 'edit' && selectedMeetingId === null && (
-                <MeetingsListToEdit selectMeetingHandler={hadnleSelectMeeting} resetForm={reset} />
+                <MeetingsListToEdit selectMeetingHandler={hadnleSelectMeeting} selectedMeetingId={selectedMeetingId} resetForm={reset} />
             )}
             {meetingModeForm === 'add' ||
             (meetingModeForm === 'edit' && selectedMeetingId !== null) ? (
@@ -408,13 +408,22 @@ export const MeetingManagement = ({ className }: MeetingMProps) => {
                                         )}
                                     />
                                     <button className={styles.submitButton}>
-                                        <div className={styles.addWrapper}>
-                                            <p className={styles.textAdd}>
-                                                {meetingModeForm?.toLocaleUpperCase()}
-                                            </p>
-                                            <p className={styles.textThe}>THE </p>
-                                            <p className={styles.textMeeting}>MEETING</p>
-                                        </div>
+                                        {meetingModeForm === 'edit' && (
+                                            <div className={styles.addWrapper}>
+                                                <p className={styles.textSave}>SAVE</p>
+                                                <p className={styles.textEdited}> EDITED</p>
+                                                <p className={styles.textChanges}>CHANGES</p>
+                                            </div>
+                                        )}
+
+                                        {meetingModeForm === 'add' && (
+                                            <div className={styles.addWrapper}>
+                                                <p className={styles.textAdd}>ADD</p>
+                                                <p className={styles.textThe}>THE </p>
+                                                <p className={styles.textMeeting}>MEETING</p>
+                                            </div>
+                                        )}
+
                                         <div>
                                             <KeyboardDoubleArrowRightIcon sx={cls.doubleArrow} />
                                         </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './animated.module.scss';
 import classNames from 'classnames';
 import { Route, Routes } from 'react-router-dom';
-import { Books } from '../book/Books';
+import { Books } from '../books/Books';
 import { useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { History } from '../history/History';

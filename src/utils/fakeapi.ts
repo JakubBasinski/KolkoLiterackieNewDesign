@@ -143,7 +143,7 @@ export const fakeMeetings: MeetingInterface[] = [
         date: '2/18/2023',
         literats: ['Wojtek', 'Daniel', 'Wambli', 'Kuba'],
         place: 'Skrzetuszewo',
-        cover: '/images/covers/No.jpg',
+        cover: '/images/covers/Wampir.jpg',
         rating: 4.8
     },
 ];

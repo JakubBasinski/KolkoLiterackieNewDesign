@@ -12,6 +12,8 @@ import { useContext } from 'react';
 import AuthorizationContext from '../../store/authorization-contex';
 import DisplayContext from '../../store/display-context';
 import { MediaButton } from '../common/MediaButton';
+import { useCreateUserData, useLoginUserData } from '../../hooks/useUserData';
+import { AxiosResponse } from 'axios';
 
 export const errorsFieldValues = {
     confirmationError: false,
@@ -21,6 +23,10 @@ export interface MenuProps {
 }
 
 export const Login = ({ className }: MenuProps) => {
+    // const [serverError, setServerError] = useState<string | null>(null);
+    const { mutate: createMutation } = useCreateUserData();
+    const { mutate: loginMutation } = useLoginUserData();
+
     const { login } = useContext(AuthorizationContext);
     const { setSnackbarMessage, setSnackBarOpen } = useContext(DisplayContext);
 
@@ -40,25 +46,56 @@ export const Login = ({ className }: MenuProps) => {
     };
 
     const submitHandler = async (formValues: any) => {
-        if (isLogin === true) {
-            setSnackbarMessage('Successfully logged in !');
-            setSnackBarOpen(true);
-            localStorage.setItem('user', formValues.password);
-            let fakeToken = 'fakeToken';
-            let fakeUser = 'fakeUser';
-            let isAdminFake = false;
-            const expirationDuration = 3600;
-            const currentTime = Math.floor(Date.now() / 1000);
-            const expirationTime = currentTime + expirationDuration;
-            localStorage.clear();
-            login(fakeToken, fakeUser, expirationTime, isAdminFake);
+        const user = {
+            name: formValues.name,
+            email: formValues.email,
+            password: formValues.password,
+        };
 
-            navigate('/');
+        if (isLogin === true) {
+            loginMutation(user, {
+                onError: (err: any, _user, _context) => {
+                    setSnackBarOpen(true);
+                    let errorMessage = err.response?.data?.message || 'Something went wrong';
+                    setSnackbarMessage(errorMessage);
+                },
+                onSuccess: (data: AxiosResponse) => {
+                    setSnackBarOpen(true);
+                    let succsessMessage = data.data?.message || 'Logged in successfully!';
+                    setSnackbarMessage(succsessMessage);
+                    setIsLogin(true);
+
+                    // No backend Purpose
+
+                    localStorage.setItem('user', formValues.password);
+                    let fakeToken = 'fakeToken';
+                    let fakeUser = 'fakeUser';
+                    let isAdminFake = false;
+                    const expirationDuration = 3600;
+                    const currentTime = Math.floor(Date.now() / 1000);
+                    const expirationTime = currentTime + expirationDuration;
+                    localStorage.clear();
+                    login(fakeToken, fakeUser, expirationTime, isAdminFake);
+                    navigate('/');
+                },
+            });
         } else {
-            setSnackBarOpen(true);
-            setSnackbarMessage('Successfully registered !');
-            setIsLogin(true);
+            createMutation(user, {
+                onError: (err: any, _user, _context) => {
+                    setSnackBarOpen(true);
+                    let errorMessage = err.response?.data?.message || 'Something went wrong';
+                    setSnackbarMessage(errorMessage);
+                },
+                onSuccess: (data: AxiosResponse) => {
+                    setSnackBarOpen(true);
+                    let succsessMessage = data.data?.message || 'Successfully registered!';
+                    setSnackbarMessage(succsessMessage);
+                    setIsLogin(true);
+                },
+            });
         }
+
+        // Adding user to real data
     };
 
     return (

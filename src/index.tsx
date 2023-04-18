@@ -8,19 +8,24 @@ import { DisplayContextProvider } from './store/display-context';
 import { AuthorizationProvider } from './store/authorization-contex';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { QueryClientProvider, QueryClient } from 'react-query';
+
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
     <React.StrictMode>
-        <BrowserRouter>
-            <DisplayContextProvider>
-                <AuthorizationProvider>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <App />
-                    </LocalizationProvider>
-                </AuthorizationProvider>
-            </DisplayContextProvider>
-        </BrowserRouter>
+        <QueryClientProvider client={queryClient}>
+            <BrowserRouter>
+                <DisplayContextProvider>
+                    <AuthorizationProvider>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <App />
+                        </LocalizationProvider>
+                    </AuthorizationProvider>
+                </DisplayContextProvider>
+            </BrowserRouter>
+        </QueryClientProvider>
     </React.StrictMode>
 );
 
